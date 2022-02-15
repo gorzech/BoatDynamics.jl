@@ -1,10 +1,21 @@
 module BoatDynamics
+using DifferentialEquations
 
 # Write your package code here.
 include("kinetic_energy.jl")
 export kinetic_energy
 
 include("symbolic/sym_kinetic_energy.jl")
-export generate_equations_of_motion
+include("symbolic/sym_generate_equations.jl")
+export generate_equations_of_motion # For tests under development
+
+if isfile(joinpath(@__DIR__, "generated", "inertia_lhs.jl"))
+    system_lhs = include("generated/inertia_lhs.jl")
+    system_rhs = include("generated/inertia_rhs.jl")
+end
+export system_lhs, system_rhs
+
+include("solver/boat_odefun.jl")
+export solve_boat
 
 end
