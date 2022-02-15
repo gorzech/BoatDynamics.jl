@@ -34,7 +34,7 @@ const l_t = 0.51# lt=m – długość uda,
 const l_s = 0.49# ls=m – długość podudzia,
 
 # Masses
-m_B = 10                # kg - masa łodzi
+const m_B = 10                # kg - masa łodzi
 # const mzaw = 85		    # kg – masa wioślarza
 const m_f = 1.7    # kg – masa stopy, (2% Masy wioślarza)
 const m_t = 10.2# kg – masa uda, (12% Masy wioślarza)
@@ -83,7 +83,7 @@ const γ′′_OA = 0.0
 
 
 
-function kinetic_energy(u, w, θ′)
+function kinetic_energy(u, w, θ′, θ_t = θ_t, θ′_t = θ′_t, θ_k = θ_k, θ′_k = θ′_k, γ_OA = γ_OA, γ′_OA = γ′_OA)
     jt =
         l_s^2 * cos(F_0(θ_t))^2 +
         x_SB^2 +
