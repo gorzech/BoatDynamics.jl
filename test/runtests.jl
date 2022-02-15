@@ -1,6 +1,7 @@
+using Revise
 using BoatDynamics
 using Test
 
 @testset "BoatDynamics.jl" begin
-    # Write your tests here.
+    include("kinetic_energy_test.jl")
 end
