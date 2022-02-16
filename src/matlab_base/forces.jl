@@ -80,10 +80,10 @@ function Q_T()
     T_OAR = 2F_OAR * sin(γ_OA)
     X_T = T_OAR * cos(θ)
     Z_T = -T_OAR * sin(θ)
-    [X_T, Z_T, 0]
+    SA[X_T, Z_T, 0]
 end
 
-function Q_ROAE()
+function Q_ROAE(θ, u, w, x1air)
     # x1w = 0
     # or 
     x1w = -θ′_t * (l_s * F_1(θ_t) + l_t) * sin(θ_t)
@@ -95,5 +95,5 @@ function Q_ROAE()
     X_ROAE = -R_ROAE * cos(θ)
     Z_ROAE = R_ROAE * sin(θ)
     M_ROAE = -coeff * szsro * cdro
-    [X_ROAE, Z_ROAE, M_ROAE]
+    SA[X_ROAE, Z_ROAE, M_ROAE]
 end

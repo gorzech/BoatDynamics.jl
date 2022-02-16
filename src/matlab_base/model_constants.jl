@@ -69,8 +69,8 @@ const xming = 2.71	# xming=m – współrzędna rufowa podłogi,
 const hbg = 0.11		# Hbg=m – głębokość podłogi od pokładu
 
 const rhoair = 1.225	# rhoair=1.225kg/m3 .-gęstość powietrza
-# const bro = 0.43		# bro=m – szerokość tułowia,
-# const hro = 0.84		# hro=m – wysokość tułowia,
+const bro = 0.43		# bro=m – szerokość tułowia,
+const hro = 0.84		# hro=m – wysokość tułowia,
 # Masses
 # const loa = 2.89		# loa=loamx-loamn=m – długość wiosła,
 # const nuh2o = 1.14e-6	# nuh2o=1.14×10-6 m2/s – współczynnik lepko?ci kinematycznej wody dla T=288°K 
@@ -78,12 +78,12 @@ const rhoair = 1.225	# rhoair=1.225kg/m3 .-gęstość powietrza
 const cf0 = 0.075	# cf0=0.075 – współczynnik odniesienia oporu lepko?ciowego wody dla reh2o=0,
 const cdw = 0.02		# cdw=0.02 – współczynnik hydrodynamicznego oporu falowego,
 const cdx = 0.01		# cdx=0.01 – współczynnik oporu hydrodynamicznego kształtu,
-# const cdro = 1.05	# cdro – współczynnik oporu aerodynamicznego tułowia wioślarza.
+const cdro = 1.05	# cdro – współczynnik oporu aerodynamicznego tułowia wioślarza.
 
 # const lomax = 2      # lomax=m - współrzędna max pióra wiosła
 # const lomin = 1.56   # lomin=m - współrzędna min pióra wiosła
 # const boac = 0.23    # boa=m - szerokość pióra wiosła
-# const sro = 0.3612	# sro=m2 – pole powierzchni tułowia, (pole czo?owe bryły I, pole prostok?ta)
+const sro = bro * hro #0.3612	# sro=m2 – pole powierzchni tułowia, (pole czo?owe bryły I, pole prostok?ta)
 
 # But can be computed using r_reynolds
 const freh2o = 1.0
