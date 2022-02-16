@@ -68,7 +68,7 @@ const xmaxg = 4.55	# xmaxg=m – współrzędna dziobowa podłogi,
 const xming = 2.71	# xming=m – współrzędna rufowa podłogi,
 const hbg = 0.11		# Hbg=m – głębokość podłogi od pokładu
 
-# const rhoair = 1.225	# rhoair=1.225kg/m3 .-gęstość powietrza
+const rhoair = 1.225	# rhoair=1.225kg/m3 .-gęstość powietrza
 # const bro = 0.43		# bro=m – szerokość tułowia,
 # const hro = 0.84		# hro=m – wysokość tułowia,
 # Masses

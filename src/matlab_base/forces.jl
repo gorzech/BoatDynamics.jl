@@ -63,7 +63,7 @@ function Q_VA(θ, u, w, bh2o, x1va)
     SA[X_VA, Z_VA, M_VA]
 end
 
-function Q_AE()
+function Q_AE(θ, u, w, bh2o, x1air)
     x1 = u * cos(θ) + w * sin(θ) - x1air
     sx1 = sign(x1)
 
@@ -72,7 +72,7 @@ function Q_AE()
     X_AE = -R_AE * cos(θ)
     Z_AE = R_AE * sin(θ)
     M_AE = -coeff * (szsbair(θ, bh2o) * cos(θ) + sxsbair(θ, bh2o) * sin(θ)) * cf0 * freair
-    [X_AE, Z_AE, M_AE]
+    SA[X_AE, Z_AE, M_AE]
 end
 
 function Q_T()

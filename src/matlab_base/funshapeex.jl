@@ -22,7 +22,7 @@
 # inbr(x,z)=int(nbr(x,z),z);
 # inbrv(x,z)=(((bb^2*x^2 - 2*bb^2*x*xmin0 + bb^2*xmin0^2 + xmin^4 - 4*xmin^3*xmin0 + 6*xmin^2*xmin0^2 - 4*xmin*xmin0^3 + xmin0^4)/(xmin^4 - 4*xmin^3*xmin0 + 6*xmin^2*xmin0^2 - 4*xmin*xmin0^3 + xmin0^4) + (bb^2*(2*hb + 2*z - 2*zmax)^2)/(4*hb^4))^(1/2)*(2*hb + 2*z - 2*zmax))/4 + (log(((bb^2*x^2 - 2*bb^2*x*xmin0 + bb^2*xmin0^2 + xmin^4 - 4*xmin^3*xmin0 + 6*xmin^2*xmin0^2 - 4*xmin*xmin0^3 + xmin0^4)/(xmin - xmin0)^4 + (bb^2*(hb + z - zmax)^2)/hb^4)^(1/2) + (bb^2/hb^4)^(1/2)*(hb + z - zmax))*(bb^2*x^2 - 2*bb^2*x*xmin0 + bb^2*xmin0^2 + xmin^4 - 4*xmin^3*xmin0 + 6*xmin^2*xmin0^2 - 4*xmin*xmin0^3 + xmin0^4))/(4*(bb^2/(4*hb^4))^(1/2)*(xmin^4 - 4*xmin^3*xmin0 + 6*xmin^2*xmin0^2 - 4*xmin*xmin0^3 + xmin0^4));
 # inbfn(x)=inbf(x,psi2(x))-inbf(x,zmax-hb);
-# inbfnv(x)=(hb*((bb^2*x^2 - 2*bb^2*x*xmax0 + bb^2*xmax0^2 + xmax^4 - 4*xmax^3*xmax0 + 6*xmax^2*xmax0^2 - 4*xmax*xmax0^3 + xmax0^4)/(xmax^4 - 4*xmax^3*xmax0 + 6*xmax^2*xmax0^2 - 4*xmax*xmax0^3 + xmax0^4) + (bb^2*(- x^2 + 2*xmax0*x + xmax^2 - 2*xmax0*xmax))/(hb^2*(xmax - xmax0)^2))^(1/2)*((- x^2 + 2*xmax0*x + xmax^2 - 2*xmax0*xmax)/(xmax - xmax0)^2)^(1/2))/2 + (log(((bb^2*x^2 - 2*bb^2*x*xmax0 + bb^2*xmax0^2 + xmax^4 - 4*xmax^3*xmax0 + 6*xmax^2*xmax0^2 - 4*xmax*xmax0^3 + xmax0^4)/(xmax - xmax0)^4 + (bb^2*(- x^2 + 2*xmax0*x + xmax^2 - 2*xmax0*xmax))/(hb^2*(xmax - xmax0)^2))^(1/2) + hb*((- x^2 + 2*xmax0*x + xmax^2 - 2*xmax0*xmax)/(xmax - xmax0)^2)^(1/2)*(bb^2/hb^4)^(1/2))*(bb^2*x^2 - 2*bb^2*x*xmax0 + bb^2*xmax0^2 + xmax^4 - 4*xmax^3*xmax0 + 6*xmax^2*xmax0^2 - 4*xmax*xmax0^3 + xmax0^4))/(4*(bb^2/(4*hb^4))^(1/2)*(xmax^4 - 4*xmax^3*xmax0 + 6*xmax^2*xmax0^2 - 4*xmax*xmax0^3 + xmax0^4)) - (log(((bb^2*x^2 - 2*bb^2*x*xmax0 + bb^2*xmax0^2 + xmax^4 - 4*xmax^3*xmax0 + 6*xmax^2*xmax0^2 - 4*xmax*xmax0^3 + xmax0^4)/(xmax - xmax0)^4)^(1/2))*(bb^2*x^2 - 2*bb^2*x*xmax0 + bb^2*xmax0^2 + xmax^4 - 4*xmax^3*xmax0 + 6*xmax^2*xmax0^2 - 4*xmax*xmax0^3 + xmax0^4))/(4*(bb^2/(4*hb^4))^(1/2)*(xmax^4 - 4*xmax^3*xmax0 + 6*xmax^2*xmax0^2 - 4*xmax*xmax0^3 + xmax0^4));
+inbfnv(x) = (hb * ((bb^2 * x^2 - 2 * bb^2 * x * xmax0 + bb^2 * xmax0^2 + xmax^4 - 4 * xmax^3 * xmax0 + 6 * xmax^2 * xmax0^2 - 4 * xmax * xmax0^3 + xmax0^4) / (xmax^4 - 4 * xmax^3 * xmax0 + 6 * xmax^2 * xmax0^2 - 4 * xmax * xmax0^3 + xmax0^4) + (bb^2 * (-x^2 + 2 * xmax0 * x + xmax^2 - 2 * xmax0 * xmax)) / (hb^2 * (xmax - xmax0)^2))^(1 / 2) * ((-x^2 + 2 * xmax0 * x + xmax^2 - 2 * xmax0 * xmax) / (xmax - xmax0)^2)^(1 / 2)) / 2 + (log(((bb^2 * x^2 - 2 * bb^2 * x * xmax0 + bb^2 * xmax0^2 + xmax^4 - 4 * xmax^3 * xmax0 + 6 * xmax^2 * xmax0^2 - 4 * xmax * xmax0^3 + xmax0^4) / (xmax - xmax0)^4 + (bb^2 * (-x^2 + 2 * xmax0 * x + xmax^2 - 2 * xmax0 * xmax)) / (hb^2 * (xmax - xmax0)^2))^(1 / 2) + hb * ((-x^2 + 2 * xmax0 * x + xmax^2 - 2 * xmax0 * xmax) / (xmax - xmax0)^2)^(1 / 2) * (bb^2 / hb^4)^(1 / 2)) * (bb^2 * x^2 - 2 * bb^2 * x * xmax0 + bb^2 * xmax0^2 + xmax^4 - 4 * xmax^3 * xmax0 + 6 * xmax^2 * xmax0^2 - 4 * xmax * xmax0^3 + xmax0^4)) / (4 * (bb^2 / (4 * hb^4))^(1 / 2) * (xmax^4 - 4 * xmax^3 * xmax0 + 6 * xmax^2 * xmax0^2 - 4 * xmax * xmax0^3 + xmax0^4)) - (log(((bb^2 * x^2 - 2 * bb^2 * x * xmax0 + bb^2 * xmax0^2 + xmax^4 - 4 * xmax^3 * xmax0 + 6 * xmax^2 * xmax0^2 - 4 * xmax * xmax0^3 + xmax0^4) / (xmax - xmax0)^4)^(1 / 2)) * (bb^2 * x^2 - 2 * bb^2 * x * xmax0 + bb^2 * xmax0^2 + xmax^4 - 4 * xmax^3 * xmax0 + 6 * xmax^2 * xmax0^2 - 4 * xmax * xmax0^3 + xmax0^4)) / (4 * (bb^2 / (4 * hb^4))^(1 / 2) * (xmax^4 - 4 * xmax^3 * xmax0 + 6 * xmax^2 * xmax0^2 - 4 * xmax * xmax0^3 + xmax0^4))
 const xgle = SA[
     -0.973906528515625,
     -0.8650633666406251,
@@ -50,17 +50,8 @@ const gle = SA[
 const xf = 0.5 * (xmax0 + xmax) .+ 0.5 * (xmax - xmax0) * xgle
 const xm = 0.5 * (xmax0 + xmin0) .+ 0.5 * (xmax0 - xmin0) * xgle
 const xr = 0.5 * (xmin0 + xmin) .+ 0.5 * (xmin0 - xmin) * xgle
-# inbfvx0=inbfnv(xf0);
-# inbfvx1=inbfnv(xf1);
-# inbfvx2=inbfnv(xf2);
-# inbfvx3=inbfnv(xf3);
-# inbfvx4=inbfnv(xf4);
-# inbfvx5=inbfnv(xf5);
-# inbfvx6=inbfnv(xf6);
-# inbfvx7=inbfnv(xf7);
-# inbfvx8=inbfnv(xf8);
-# inbfvx9=inbfnv(xf9);
-# iinbfvv=0.5*(xmax-xmax0)*(inbfvx0*gle0+inbfvx1*gle1+inbfvx2*gle2+inbfvx3*gle3+inbfvx4*gle4+inbfvx5*gle5+inbfvx6*gle6+inbfvx7*gle7+inbfvx8*gle8+inbfvx9*gle9);
+const inbfvx = inbfnv.(xf)
+const iinbfvv = 0.5 * (xmax - xmax0) * dot(inbfvx, gle)
 # x1inbfnv(x)=x*inbfnv(x);
 x1inbfnve(x) = x * ((hb * ((bb^2 * x^2 - 2 * bb^2 * x * xmax0 + bb^2 * xmax0^2 + xmax^4 - 4 * xmax^3 * xmax0 + 6 * xmax^2 * xmax0^2 - 4 * xmax * xmax0^3 + xmax0^4) / (xmax^4 - 4 * xmax^3 * xmax0 + 6 * xmax^2 * xmax0^2 - 4 * xmax * xmax0^3 + xmax0^4) + (bb^2 * (-x^2 + 2 * xmax0 * x + xmax^2 - 2 * xmax0 * xmax)) / (hb^2 * (xmax - xmax0)^2))^(1 / 2) * ((-x^2 + 2 * xmax0 * x + xmax^2 - 2 * xmax0 * xmax) / (xmax - xmax0)^2)^(1 / 2)) / 2 + (log(((bb^2 * x^2 - 2 * bb^2 * x * xmax0 + bb^2 * xmax0^2 + xmax^4 - 4 * xmax^3 * xmax0 + 6 * xmax^2 * xmax0^2 - 4 * xmax * xmax0^3 + xmax0^4) / (xmax - xmax0)^4 + (bb^2 * (-x^2 + 2 * xmax0 * x + xmax^2 - 2 * xmax0 * xmax)) / (hb^2 * (xmax - xmax0)^2))^(1 / 2) + hb * ((-x^2 + 2 * xmax0 * x + xmax^2 - 2 * xmax0 * xmax) / (xmax - xmax0)^2)^(1 / 2) * (bb^2 / hb^4)^(1 / 2)) * (bb^2 * x^2 - 2 * bb^2 * x * xmax0 + bb^2 * xmax0^2 + xmax^4 - 4 * xmax^3 * xmax0 + 6 * xmax^2 * xmax0^2 - 4 * xmax * xmax0^3 + xmax0^4)) / (4 * (bb^2 / (4 * hb^4))^(1 / 2) * (xmax^4 - 4 * xmax^3 * xmax0 + 6 * xmax^2 * xmax0^2 - 4 * xmax * xmax0^3 + xmax0^4)) - (log(((bb^2 * x^2 - 2 * bb^2 * x * xmax0 + bb^2 * xmax0^2 + xmax^4 - 4 * xmax^3 * xmax0 + 6 * xmax^2 * xmax0^2 - 4 * xmax * xmax0^3 + xmax0^4) / (xmax - xmax0)^4)^(1 / 2)) * (bb^2 * x^2 - 2 * bb^2 * x * xmax0 + bb^2 * xmax0^2 + xmax^4 - 4 * xmax^3 * xmax0 + 6 * xmax^2 * xmax0^2 - 4 * xmax * xmax0^3 + xmax0^4)) / (4 * (bb^2 / (4 * hb^4))^(1 / 2) * (xmax^4 - 4 * xmax^3 * xmax0 + 6 * xmax^2 * xmax0^2 - 4 * xmax * xmax0^3 + xmax0^4)))
 const x1inbfvx = x1inbfnve.(xf)
@@ -81,18 +72,10 @@ const ix1inbfvv = 0.5 * (xmax - xmax0) * dot(x1inbfvx, gle)
 # ix2inbfvv=0.5*(xmax-xmax0)*(x2inbfvx0*gle0+x2inbfvx1*gle1+x2inbfvx2*gle2+x2inbfvx3*gle3+x2inbfvx4*gle4+x2inbfvx5*gle5+x2inbfvx6*gle6+x2inbfvx7*gle7+x2inbfvx8*gle8+x2inbfvx9*gle9);
 
 # inbrn(x)=inbr(x,psi1(x))-inbr(x,zmax-hb);
-# inbrnv(x)=(hb*((bb^2*x^2 - 2*bb^2*x*xmin0 + bb^2*xmin0^2 + xmin^4 - 4*xmin^3*xmin0 + 6*xmin^2*xmin0^2 - 4*xmin*xmin0^3 + xmin0^4)/(xmin^4 - 4*xmin^3*xmin0 + 6*xmin^2*xmin0^2 - 4*xmin*xmin0^3 + xmin0^4) + (bb^2*(- x^2 + 2*xmin0*x + xmin^2 - 2*xmin0*xmin))/(hb^2*(xmin - xmin0)^2))^(1/2)*((- x^2 + 2*xmin0*x + xmin^2 - 2*xmin0*xmin)/(xmin - xmin0)^2)^(1/2))/2 + (log(((bb^2*x^2 - 2*bb^2*x*xmin0 + bb^2*xmin0^2 + xmin^4 - 4*xmin^3*xmin0 + 6*xmin^2*xmin0^2 - 4*xmin*xmin0^3 + xmin0^4)/(xmin - xmin0)^4 + (bb^2*(- x^2 + 2*xmin0*x + xmin^2 - 2*xmin0*xmin))/(hb^2*(xmin - xmin0)^2))^(1/2) + hb*((- x^2 + 2*xmin0*x + xmin^2 - 2*xmin0*xmin)/(xmin - xmin0)^2)^(1/2)*(bb^2/hb^4)^(1/2))*(bb^2*x^2 - 2*bb^2*x*xmin0 + bb^2*xmin0^2 + xmin^4 - 4*xmin^3*xmin0 + 6*xmin^2*xmin0^2 - 4*xmin*xmin0^3 + xmin0^4))/(4*(bb^2/(4*hb^4))^(1/2)*(xmin^4 - 4*xmin^3*xmin0 + 6*xmin^2*xmin0^2 - 4*xmin*xmin0^3 + xmin0^4)) - (log(((bb^2*x^2 - 2*bb^2*x*xmin0 + bb^2*xmin0^2 + xmin^4 - 4*xmin^3*xmin0 + 6*xmin^2*xmin0^2 - 4*xmin*xmin0^3 + xmin0^4)/(xmin - xmin0)^4)^(1/2))*(bb^2*x^2 - 2*bb^2*x*xmin0 + bb^2*xmin0^2 + xmin^4 - 4*xmin^3*xmin0 + 6*xmin^2*xmin0^2 - 4*xmin*xmin0^3 + xmin0^4))/(4*(bb^2/(4*hb^4))^(1/2)*(xmin^4 - 4*xmin^3*xmin0 + 6*xmin^2*xmin0^2 - 4*xmin*xmin0^3 + xmin0^4));
-# inbrvx0=inbrnv(xr0);
-# inbrvx1=inbrnv(xr1);
-# inbrvx2=inbrnv(xr2);
-# inbrvx3=inbrnv(xr3);
-# inbrvx4=inbrnv(xr4);
-# inbrvx5=inbrnv(xr5);
-# inbrvx6=inbrnv(xr6);
-# inbrvx7=inbrnv(xr7);
-# inbrvx8=inbrnv(xr8);
-# inbrvx9=inbrnv(xr9);
-# iinbrvv=0.5*(xmin0-xmin)*(inbrvx0*gle0+inbrvx1*gle1+inbrvx2*gle2+inbrvx3*gle3+inbrvx4*gle4+inbrvx5*gle5+inbrvx6*gle6+inbrvx7*gle7+inbrvx8*gle8+inbrvx9*gle9);
+inbrnv(x) = (hb * ((bb^2 * x^2 - 2 * bb^2 * x * xmin0 + bb^2 * xmin0^2 + xmin^4 - 4 * xmin^3 * xmin0 + 6 * xmin^2 * xmin0^2 - 4 * xmin * xmin0^3 + xmin0^4) / (xmin^4 - 4 * xmin^3 * xmin0 + 6 * xmin^2 * xmin0^2 - 4 * xmin * xmin0^3 + xmin0^4) + (bb^2 * (-x^2 + 2 * xmin0 * x + xmin^2 - 2 * xmin0 * xmin)) / (hb^2 * (xmin - xmin0)^2))^(1 / 2) * ((-x^2 + 2 * xmin0 * x + xmin^2 - 2 * xmin0 * xmin) / (xmin - xmin0)^2)^(1 / 2)) / 2 + (log(((bb^2 * x^2 - 2 * bb^2 * x * xmin0 + bb^2 * xmin0^2 + xmin^4 - 4 * xmin^3 * xmin0 + 6 * xmin^2 * xmin0^2 - 4 * xmin * xmin0^3 + xmin0^4) / (xmin - xmin0)^4 + (bb^2 * (-x^2 + 2 * xmin0 * x + xmin^2 - 2 * xmin0 * xmin)) / (hb^2 * (xmin - xmin0)^2))^(1 / 2) + hb * ((-x^2 + 2 * xmin0 * x + xmin^2 - 2 * xmin0 * xmin) / (xmin - xmin0)^2)^(1 / 2) * (bb^2 / hb^4)^(1 / 2)) * (bb^2 * x^2 - 2 * bb^2 * x * xmin0 + bb^2 * xmin0^2 + xmin^4 - 4 * xmin^3 * xmin0 + 6 * xmin^2 * xmin0^2 - 4 * xmin * xmin0^3 + xmin0^4)) / (4 * (bb^2 / (4 * hb^4))^(1 / 2) * (xmin^4 - 4 * xmin^3 * xmin0 + 6 * xmin^2 * xmin0^2 - 4 * xmin * xmin0^3 + xmin0^4)) - (log(((bb^2 * x^2 - 2 * bb^2 * x * xmin0 + bb^2 * xmin0^2 + xmin^4 - 4 * xmin^3 * xmin0 + 6 * xmin^2 * xmin0^2 - 4 * xmin * xmin0^3 + xmin0^4) / (xmin - xmin0)^4)^(1 / 2)) * (bb^2 * x^2 - 2 * bb^2 * x * xmin0 + bb^2 * xmin0^2 + xmin^4 - 4 * xmin^3 * xmin0 + 6 * xmin^2 * xmin0^2 - 4 * xmin * xmin0^3 + xmin0^4)) / (4 * (bb^2 / (4 * hb^4))^(1 / 2) * (xmin^4 - 4 * xmin^3 * xmin0 + 6 * xmin^2 * xmin0^2 - 4 * xmin * xmin0^3 + xmin0^4))
+const inbrvx = inbrnv.(xr)
+const iinbrvv = 0.5 * (xmin0 - xmin) * dot(inbrvx, gle)
+
 # x1inbrnv(x)=x*inbrnv(x);
 x1inbrnve(x) = x * (hb * ((bb^2 * x^2 - 2 * bb^2 * x * xmin0 + bb^2 * xmin0^2 + xmin^4 - 4 * xmin^3 * xmin0 + 6 * xmin^2 * xmin0^2 - 4 * xmin * xmin0^3 + xmin0^4) / (xmin^4 - 4 * xmin^3 * xmin0 + 6 * xmin^2 * xmin0^2 - 4 * xmin * xmin0^3 + xmin0^4) + (bb^2 * (-x^2 + 2 * xmin0 * x + xmin^2 - 2 * xmin0 * xmin)) / (hb^2 * (xmin - xmin0)^2))^(1 / 2) * ((-x^2 + 2 * xmin0 * x + xmin^2 - 2 * xmin0 * xmin) / (xmin - xmin0)^2)^(1 / 2)) / 2 + (log(((bb^2 * x^2 - 2 * bb^2 * x * xmin0 + bb^2 * xmin0^2 + xmin^4 - 4 * xmin^3 * xmin0 + 6 * xmin^2 * xmin0^2 - 4 * xmin * xmin0^3 + xmin0^4) / (xmin - xmin0)^4 + (bb^2 * (-x^2 + 2 * xmin0 * x + xmin^2 - 2 * xmin0 * xmin)) / (hb^2 * (xmin - xmin0)^2))^(1 / 2) + hb * ((-x^2 + 2 * xmin0 * x + xmin^2 - 2 * xmin0 * xmin) / (xmin - xmin0)^2)^(1 / 2) * (bb^2 / hb^4)^(1 / 2)) * (bb^2 * x^2 - 2 * bb^2 * x * xmin0 + bb^2 * xmin0^2 + xmin^4 - 4 * xmin^3 * xmin0 + 6 * xmin^2 * xmin0^2 - 4 * xmin * xmin0^3 + xmin0^4)) / (4 * (bb^2 / (4 * hb^4))^(1 / 2) * (xmin^4 - 4 * xmin^3 * xmin0 + 6 * xmin^2 * xmin0^2 - 4 * xmin * xmin0^3 + xmin0^4)) - (log(((bb^2 * x^2 - 2 * bb^2 * x * xmin0 + bb^2 * xmin0^2 + xmin^4 - 4 * xmin^3 * xmin0 + 6 * xmin^2 * xmin0^2 - 4 * xmin * xmin0^3 + xmin0^4) / (xmin - xmin0)^4)^(1 / 2)) * (bb^2 * x^2 - 2 * bb^2 * x * xmin0 + bb^2 * xmin0^2 + xmin^4 - 4 * xmin^3 * xmin0 + 6 * xmin^2 * xmin0^2 - 4 * xmin * xmin0^3 + xmin0^4)) / (4 * (bb^2 / (4 * hb^4))^(1 / 2) * (xmin^4 - 4 * xmin^3 * xmin0 + 6 * xmin^2 * xmin0^2 - 4 * xmin * xmin0^3 + xmin0^4))
 const x1inbrvx = x1inbrnve.(xr)
@@ -173,13 +156,13 @@ const iz1inbfvv = 0.5 * (xmax - xmax0) * dot(z1inbfenx.(xf), gle)
 
 # inbmnv=asinh(hb*(bb^2/hb^4)^(1/2))/(2*(bb^2/hb^4)^(1/2)) + (hb*(bb^2/hb^2 + 1)^(1/2))/2;
 # snbm=2*inbmn*(xmax0-xmin0);
-# snbmv=(xmax0 - xmin0)*(asinh(hb*(bb^2/hb^4)^(1/2))/(bb^2/hb^4)^(1/2) + hb*(bb^2/hb^2 + 1)^(1/2));
+const snbmv = (xmax0 - xmin0) * (asinh(hb * (bb^2 / hb^4)^(1 / 2)) / (bb^2 / hb^4)^(1 / 2) + hb * (bb^2 / hb^2 + 1)^(1 / 2))
 # x1snbm=2*inbmn*(xmax0^2-xmin0^2)/2;
 const x1snbmv = ((xmax0^2 - xmin0^2) * (asinh(hb * (bb^2 / hb^4)^(1 / 2)) / (bb^2 / hb^4)^(1 / 2) + hb * (bb^2 / hb^2 + 1)^(1 / 2))) / 2
 # x2snbm=2*inbmn*(xmax0^3-xmin0^3)/3;
 # x2snbmv=((xmax0^3 - xmin0^3)*(asinh(hb*(bb^2/hb^4)^(1/2))/(bb^2/hb^4)^(1/2) + hb*(bb^2/hb^2 + 1)^(1/2)))/3;
 
-# snb=2*iinbfvv+snbmv+2*iinbrvv;
+const snb = 2 * iinbfvv + snbmv + 2 * iinbrvv;
 # x2snb=2*ix2inbfvv+x2snbmv+2*ix2inbrvv;
 const x1snb = 2 * ix1inbfvv + x1snbmv + 2 * ix1inbrvv
 const a0 = bb^2 * hb^(-4)
@@ -236,7 +219,7 @@ const szmb = rhob * deltab * z1snb + rhod * deltad * (z1sbd - z1sbde) + rhog * d
 const xo = sxmb / m_B
 const zo = szmb / m_B
 # jymb=rhob*deltab*(x2snb+z2snb)+rhod*deltad*(x2sbd+z2sbd-x2sbde-z2sbde)+rhog*deltag*(x2sbdg+z2sbdg)-m_B*(xo^2+zo^2);
-# sbof=snb+sbd;
+const sbof = snb + sbd
 
 # xxbm(x,z)=int(2*fi2m(x,z),z);
 # xxbme(x,z)=-((bb*z*(z^2 - 3*z*zmax + 3*zmax^2))/3 + (bb*hb*z*(3*z - 6*zmax))/3)/hb^2;
@@ -613,13 +596,13 @@ ytmh2ov(the, bh2o) = 2 * (0.5 * bb * ((-(((xmax0^3 - xmin0^3) / 3 - 2 * xo * (xm
 ytrh2ov(the, bh2o) = 2 * (0.5 * bb * ((-(((xmin0^3 - minsnake(the, bh2o)^3) / 3 - 2 * xo * (xmin0^2 - minsnake(the, bh2o)^2) / 2 + xo^2 * (xmin0 - minsnake(the, bh2o))) * tan(the)^2 - 2 * ((xmin0^2 - minsnake(the, bh2o)^2) / 2 - xo * (xmin0 - minsnake(the, bh2o))) * bh2o * tan(the) + bh2o^2 * (xmin0 - minsnake(the, bh2o))) + 2 * (zmax - hb) * (-((xmin0 * 2 - minsnake(the, bh2o)^2) / 2 - xo * (xmin0 - minsnake(the, bh2o))) * tan(the) + bh2o * (xmin0 - minsnake(the, bh2o))) - zmax * (zmax - 2 * hb) * (xmin0 - minsnake(the, bh2o))) * hb^(-2) + (-(xmin0^3 - minsnake(the, bh2o)^3) / 3 + 2 * xmin0 * (xmin0^2 - minsnake(the, bh2o)^2) / 2 + (xmin^2 - 2 * xmin0 * xmin) * (xmin0 - minsnake(the, bh2o))) * (xmin0 - xmin)^(-2) - (xmin0 - minsnake(the, bh2o)))) / cos(the);
 yth2ov(the, bh2o) = ytfh2ov(the, bh2o) + ytmh2ov(the, bh2o) + ytrh2ov(the, bh2o);
 
-x1ytfh2ov(the,bh2o)=2*(0.5*bb*((-(((maxsnake(the,bh2o)^4-xmax0^4)/4-2*xo*(maxsnake(the,bh2o)^3-xmax0^3)/3+xo^2*(maxsnake(the,bh2o)^2-xmax0^2)/2)*tan(the)^2-2*((maxsnake(the,bh2o)^3-xmax0^3)/3-xo*(maxsnake(the,bh2o)^2-xmax0^2)/2)*bh2o*tan(the)+bh2o^2*(maxsnake(the,bh2o)^2-xmax0^2)/2)+2*(zmax-hb)*(-((maxsnake(the,bh2o)^3-xmax0^3)/3-xo*(maxsnake(the,bh2o)^2-xmax0^2)/2)*tan(the)+bh2o*(maxsnake(the,bh2o)^2-xmax0^2)/2)-zmax*(zmax-2*hb)*(maxsnake(the,bh2o)^2-xmax0^2)/2)*hb^(-2)+(-(maxsnake(the,bh2o)^4-xmax0^4)/4+2*xmax0*(maxsnake(the,bh2o)^3-xmax0^3)/3+(xmax^2-2*xmax0*xmax)*(maxsnake(the,bh2o)^2-xmax0^2)/2)*(xmax-xmax0)^(-2)-(maxsnake(the,bh2o)^2-xmax0^2)/2))/cos(the);
-x1ytmh2ov(the,bh2o)=2*(0.5*bb*((-(((xmax0^4-xmin0^4)/4-2*xo*(xmax0^3-xmin0^3)/3+xo^2*(xmax0^2-xmin0^2)/2)*tan(the)^2-2*((xmax0^3-xmin0^3)/3-xo*(xmax0^2-xmin0^2)/2)*bh2o*tan(the)+bh2o^2*(xmax0^2-xmin0^2)/2)^2+2*(zmax-hb)*(-((xmax0^3-xmin0^3)/3-xo*(xmax0^2-xmin0^2)/2)*tan(the)+bh2o*(xmax0^2-xmin0^2)/2)-zmax*(zmax-2*hb)*(xmax0^2-xmin0^2)/2)*hb^(-2)))/cos(the);
-x1ytrh2ov(the,bh2o)=2*(0.5*bb*((-(((xmin0^4-minsnake(the,bh2o)^4)/4-2*xo*(xmin0^3-minsnake(the,bh2o)^3)/3+xo^2*(xmin0^2-minsnake(the,bh2o)^2)/2)*tan(the)^2-2*((xmin0^3-minsnake(the,bh2o)^3)/3-xo*(xmin0^2-minsnake(the,bh2o)^2)/2)*bh2o*tan(the)+bh2o^2*(xmin0^2-minsnake(the,bh2o)^2)/2)+2*(zmax-hb)*(-((xmin0*3-minsnake(the,bh2o)^3)/3-xo*(xmin0^2-minsnake(the,bh2o)^2)/2)*tan(the)+bh2o*(xmin0^2-minsnake(the,bh2o)^2)/2)-zmax*(zmax-2*hb)*(xmin0^2-minsnake(the,bh2o)^2)/2)*hb^(-2)+(-(xmin0^4-minsnake(the,bh2o)^4)/4+2*xmin0*(xmin0^3-minsnake(the,bh2o)^3)/3+(xmin^2-2*xmin0*xmin)*(xmin0^2-minsnake(the,bh2o)^2)/2)*(xmin0-xmin)^(-2)-(xmin0^2-minsnake(the,bh2o)^2)/2))/cos(the);
+x1ytfh2ov(the, bh2o) = 2 * (0.5 * bb * ((-(((maxsnake(the, bh2o)^4 - xmax0^4) / 4 - 2 * xo * (maxsnake(the, bh2o)^3 - xmax0^3) / 3 + xo^2 * (maxsnake(the, bh2o)^2 - xmax0^2) / 2) * tan(the)^2 - 2 * ((maxsnake(the, bh2o)^3 - xmax0^3) / 3 - xo * (maxsnake(the, bh2o)^2 - xmax0^2) / 2) * bh2o * tan(the) + bh2o^2 * (maxsnake(the, bh2o)^2 - xmax0^2) / 2) + 2 * (zmax - hb) * (-((maxsnake(the, bh2o)^3 - xmax0^3) / 3 - xo * (maxsnake(the, bh2o)^2 - xmax0^2) / 2) * tan(the) + bh2o * (maxsnake(the, bh2o)^2 - xmax0^2) / 2) - zmax * (zmax - 2 * hb) * (maxsnake(the, bh2o)^2 - xmax0^2) / 2) * hb^(-2) + (-(maxsnake(the, bh2o)^4 - xmax0^4) / 4 + 2 * xmax0 * (maxsnake(the, bh2o)^3 - xmax0^3) / 3 + (xmax^2 - 2 * xmax0 * xmax) * (maxsnake(the, bh2o)^2 - xmax0^2) / 2) * (xmax - xmax0)^(-2) - (maxsnake(the, bh2o)^2 - xmax0^2) / 2)) / cos(the);
+x1ytmh2ov(the, bh2o) = 2 * (0.5 * bb * ((-(((xmax0^4 - xmin0^4) / 4 - 2 * xo * (xmax0^3 - xmin0^3) / 3 + xo^2 * (xmax0^2 - xmin0^2) / 2) * tan(the)^2 - 2 * ((xmax0^3 - xmin0^3) / 3 - xo * (xmax0^2 - xmin0^2) / 2) * bh2o * tan(the) + bh2o^2 * (xmax0^2 - xmin0^2) / 2)^2 + 2 * (zmax - hb) * (-((xmax0^3 - xmin0^3) / 3 - xo * (xmax0^2 - xmin0^2) / 2) * tan(the) + bh2o * (xmax0^2 - xmin0^2) / 2) - zmax * (zmax - 2 * hb) * (xmax0^2 - xmin0^2) / 2) * hb^(-2))) / cos(the);
+x1ytrh2ov(the, bh2o) = 2 * (0.5 * bb * ((-(((xmin0^4 - minsnake(the, bh2o)^4) / 4 - 2 * xo * (xmin0^3 - minsnake(the, bh2o)^3) / 3 + xo^2 * (xmin0^2 - minsnake(the, bh2o)^2) / 2) * tan(the)^2 - 2 * ((xmin0^3 - minsnake(the, bh2o)^3) / 3 - xo * (xmin0^2 - minsnake(the, bh2o)^2) / 2) * bh2o * tan(the) + bh2o^2 * (xmin0^2 - minsnake(the, bh2o)^2) / 2) + 2 * (zmax - hb) * (-((xmin0 * 3 - minsnake(the, bh2o)^3) / 3 - xo * (xmin0^2 - minsnake(the, bh2o)^2) / 2) * tan(the) + bh2o * (xmin0^2 - minsnake(the, bh2o)^2) / 2) - zmax * (zmax - 2 * hb) * (xmin0^2 - minsnake(the, bh2o)^2) / 2) * hb^(-2) + (-(xmin0^4 - minsnake(the, bh2o)^4) / 4 + 2 * xmin0 * (xmin0^3 - minsnake(the, bh2o)^3) / 3 + (xmin^2 - 2 * xmin0 * xmin) * (xmin0^2 - minsnake(the, bh2o)^2) / 2) * (xmin0 - xmin)^(-2) - (xmin0^2 - minsnake(the, bh2o)^2) / 2)) / cos(the);
 
-x1yth2ov(the,bh2o)=x1ytfh2ov(the,bh2o)+x1ytmh2ov(the,bh2o)+x1ytrh2ov(the,bh2o);
+x1yth2ov(the, bh2o) = x1ytfh2ov(the, bh2o) + x1ytmh2ov(the, bh2o) + x1ytrh2ov(the, bh2o);
 # sxyth2ov(the,bh2o)=x1yth2ov(the,bh2o)-xo*yth2ov(the,bh2o);
-z1yth2ov(the,bh2o)=-x1yth2ov(the,bh2o)*tan(the)+bh2o*yth2ov(the,bh2o);
+z1yth2ov(the, bh2o) = -x1yth2ov(the, bh2o) * tan(the) + bh2o * yth2ov(the, bh2o);
 # szyth2ov(the,bh2o)=z1yth2ov(the,bh2o)-zo*yth2ov(the,bh2o);
 tvmh2o(the) = (bb * xo * cos(the) * (2 * hb - 2 * zmax)) / (2 * hb^2) - (bb * zmax * sin(the) * (2 * hb - zmax)) / (2 * hb^2)
 
@@ -628,8 +611,8 @@ sztvmh2o(the, bh2o) = z1tvmh2o(the, bh2o) - zo * tvmh2o(the)
 
 
 # lbh2o(the,bh2o)=((((bh2o+hb-zmax)*tan(the)+hb^2*xmax0*(xmax-xmax0)^(-2)+2*((hb^4+2*hb^2*xmax0*(bh2o+hb-zmax)*tan(the)-(bh2o+hb-zmax)^2*hb^2+(bh2o+hb-zmax)*hb^2*(tan(the))^2)*(xmax-xmax0)^(-2))^0.5)*(2*((tan(the))^2+hb^2*(xmax-xmax0)^(-2))^(-1))-((bh2o+hb-zmax)*tan(the)+hb^2*xmin0*(xmin0-xmin)^(-2)-2*((hb^4+2*hb^2*xmin0*(bh2o+hb-zmax)*tan(the)-(bh2o+hb-zmax)^2*hb^2+(bh2o+hb-zmax)*hb^2*(tan(the))^2)*(xmin0-xmin)^(-2))^0.5)*(2*((tan(the))^2+hb^2*(xmin0-xmin)^(-2))^(-1)))^2+(psi2(((bh2o+hb-zmax)*tan(the)+hb^2*xmax0*(xmax-xmax0)^(-2)+2*((hb^4+2*hb^2*xmax0*(bh2o+hb-zmax)*tan(the)-(bh2o+hb-zmax)^2*hb^2+(bh2o+hb-zmax)*hb^2*(tan(the))^2)*(xmax-xmax0)^(-2))^0.5)*(2*((tan(the))^2+hb^2*(xmax-xmax0)^(-2))^(-1)))-psi1(((bh2o+hb-zmax)*tan(the)+hb^2*xmin0*(xmin0-xmin)^(-2)-2*((hb^4+2*hb^2*xmin0*(bh2o+hb-zmax)*tan(the)-(bh2o+hb-zmax)^2*hb^2+(bh2o+hb-zmax)*hb^2*(tan(the))^2)*(xmin0-xmin)^(-2))^0.5)*(2*((tan(the))^2+hb^2*(xmin0-xmin)^(-2))^(-1))))^2)^0.5;
-# sbair(the,bh2o)=sbof-svbh2o(the,bh2o);
-# sxsbair(the,bh2o)=sxmb-m_B*xo-sxsvbh2o(the,bh2o);
-# szsbair(the,bh2o)=szmb-m_B*zo-szsvbh2o(the,bh2o);
+sbair(the, bh2o) = sbof - svbh2o(the, bh2o);
+sxsbair(the,bh2o)=sxmb-m_B*xo-sxsvbh2o(the,bh2o)
+szsbair(the,bh2o)=szmb-m_B*zo-szsvbh2o(the,bh2o)
 # sro=bro*hro;
 # szsro=bro*((zmax-hb)^2-(zmax-hb-hro)^2)/2-zo*sro;
