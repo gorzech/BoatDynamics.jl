@@ -75,12 +75,16 @@ const hbg = 0.11		# Hbg=m – głębokość podłogi od pokładu
 # const loa = 2.89		# loa=loamx-loamn=m – długość wiosła,
 # const nuh2o = 1.14e-6	# nuh2o=1.14×10-6 m2/s – współczynnik lepko?ci kinematycznej wody dla T=288°K 
 # const nuair = 1.445e-5	# nuair=1.445×10-5 m2/s – współczynnik lepko?ci kinematycznej powietrza dla T=288°K, 1013 hPa,
-# const cf0 = 0.075	# cf0=0.075 – współczynnik odniesienia oporu lepko?ciowego wody dla reh2o=0,
-# const cdw = 0.02		# cdw=0.02 – współczynnik hydrodynamicznego oporu falowego,
-# const cdx = 0.01		# cdx=0.01 – współczynnik oporu hydrodynamicznego kształtu,
+const cf0 = 0.075	# cf0=0.075 – współczynnik odniesienia oporu lepko?ciowego wody dla reh2o=0,
+const cdw = 0.02		# cdw=0.02 – współczynnik hydrodynamicznego oporu falowego,
+const cdx = 0.01		# cdx=0.01 – współczynnik oporu hydrodynamicznego kształtu,
 # const cdro = 1.05	# cdro – współczynnik oporu aerodynamicznego tułowia wioślarza.
 
 # const lomax = 2      # lomax=m - współrzędna max pióra wiosła
 # const lomin = 1.56   # lomin=m - współrzędna min pióra wiosła
 # const boac = 0.23    # boa=m - szerokość pióra wiosła
 # const sro = 0.3612	# sro=m2 – pole powierzchni tułowia, (pole czo?owe bryły I, pole prostok?ta)
+
+# But can be computed using r_reynolds
+const freh2o = 1.0
+const freair = 1.0

@@ -1,6 +1,6 @@
 #differential equation 1
 function Q(θ)
-    Q_g(θ) #+ Q_BUOY(θ, bh2o) + Q_VA() + Q_AE() + Q_T() + Q_ROAE()
+    Q_g(θ) #+ Q_BUOY(θ, bh2o) + Q_VA(θ, u, w, bh2o, x1va) + Q_AE() + Q_T() + Q_ROAE()
 end
 
 # xoab = xoabme - xo
@@ -43,13 +43,13 @@ function Q_BUOY(θ, bh2o)
     SA[X, Z, M_BUOY]
 end
 
-function Q_VA()
+function Q_VA(θ, u, w, bh2o, x1va)
     x1 = u * cos(θ) + w * sin(θ) - x1va
     sx1 = sign(x1)
 
     coeff = 0.5rhoh2o * x1^2 * sx1
 
-    R_SHAPE = coeff * cdx * tvmh2o(θ, bh2o) / cos(θ)
+    R_SHAPE = coeff * cdx * tvmh2o(θ) / cos(θ)
     R_VIS = coeff * cf0 * svbh2o(θ, bh2o) * freh2o
     R_VAVE = coeff * cdw * yth2ov(θ, bh2o)
     R_VA = R_SHAPE + R_VIS + R_VAVE
@@ -60,7 +60,7 @@ function Q_VA()
         -coeff * cf0 * (szsvbh2o(θ, bh2o) * cos(θ) + sxsvbh2o(θ, bh2o) * sin(θ)) * freh2o
     M_VAVE = -coeff * cdw * (z1yth2ov(θ, bh2o) * cos(θ) + x1yth2ov(θ, bh2o) * sin(θ))
     M_VA = M_SHAPE + M_VIS + M_VAVE
-    [X_VA, Z_VA, M_VA]
+    SA[X_VA, Z_VA, M_VA]
 end
 
 function Q_AE()
