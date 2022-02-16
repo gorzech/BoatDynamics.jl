@@ -41,33 +41,33 @@ const γ′′_OA = 0.0
 
 ## Many others
 const g = 9.80665	# g=9.80665 m/s2 - przyspieszenie ziemskie,
+const rhoh2o = 1000	# rhoh2o=1000 kg/m3 – gęstość wody
 
-# const xmax = 7.91    # xmax=m – współrzędna dziobu łodzi,
-# const xmin = 0       # xmin=m – współrzędna rufy łodzi,
+const xmax = 7.91    # xmax=m – współrzędna dziobu łodzi,
+const xmin = 0       # xmin=m – współrzędna rufy łodzi,
 # const lb = 7.91      # lb=xmax–xmin=m długość łodzi,
-# const hb = 0.23      # hb=m – wysokość łodzi,
-# const bb = 0.30      # bb=m – szerokość łodzi,
-# const xmax0 = 5.01   # xmax0=m – współrzędna przejęcia strefy dziobowej na strefę walcową,
-# const xmin0 = 2.56   # xmin0=m – współrzędna przejęcia strefy rufowej na strefę walcową,
-# const zmax = 0.23	# zmax=m – współrzędna stępki w strefie walcowej,
+const hb = 0.23      # hb=m – wysokość łodzi,
+const bb = 0.30      # bb=m – szerokość łodzi,
+const xmax0 = 5.01   # xmax0=m – współrzędna przejęcia strefy dziobowej na strefę walcową,
+const xmin0 = 2.56   # xmin0=m – współrzędna przejęcia strefy rufowej na strefę walcową,
+const zmax = 0.23	# zmax=m – współrzędna stępki w strefie walcowej,
 
-# const deltab = 0.0015	# deltab=m – grubość kadłuba łodzi,
-# const deltad = 0.0015	# deltad=m – grubość pokładu łodzi,
-# const deltag = 0.0015	# deltag=m – grubość podłogi łodzi,
+const deltab = 0.0015	# deltab=m – grubość kadłuba łodzi,
+const deltad = 0.0015	# deltad=m – grubość pokładu łodzi,
+const deltag = 0.0015	# deltag=m – grubość podłogi łodzi,
 
-# const rhob = 2000	# rhob=kg/m3 – gęstość objętościowa materiału kadłuba,
-# const rhod = 2000	# rhod=kg/m3 – gęstość objętościowa materiału pokładu,
-# const rhog = 2000	# rhog=kg/m3 – gęstość objętościowa materiału podłogi,
+const rhob = 2000	# rhob=kg/m3 – gęstość objętościowa materiału kadłuba,
+const rhod = 2000	# rhod=kg/m3 – gęstość objętościowa materiału pokładu,
+const rhog = 2000	# rhog=kg/m3 – gęstość objętościowa materiału podłogi,
 
-# const bbe = 0.26		# bbe=m – szerokość kokpitu,
-# const xmaxe = 4.57	# xmaxe=m – współrzędna dziobowa kokpitu,
-# const xmine = 2.68	# xmine=m – współrzędna rufowa kokpitu,
-# const bbg = 0.23		# bbg=m – szerokość podłogi,
-# const xmaxg = 4.55	# xmaxg=m – współrzędna dziobowa podłogi,
-# const xming = 2.71	# xming=m – współrzędna rufowa podłogi,
-# const hbg = 0.11		# Hbg=m – głębokość podłogi od pokładu
+const bbe = 0.26		# bbe=m – szerokość kokpitu,
+const xmaxe = 4.57	# xmaxe=m – współrzędna dziobowa kokpitu,
+const xmine = 2.68	# xmine=m – współrzędna rufowa kokpitu,
+const bbg = 0.23		# bbg=m – szerokość podłogi,
+const xmaxg = 4.55	# xmaxg=m – współrzędna dziobowa podłogi,
+const xming = 2.71	# xming=m – współrzędna rufowa podłogi,
+const hbg = 0.11		# Hbg=m – głębokość podłogi od pokładu
 
-# const rhoh2o = 1000	# rhoh2o=1000 kg/m3 – gęstość wody
 # const rhoair = 1.225	# rhoair=1.225kg/m3 .-gęstość powietrza
 # const bro = 0.43		# bro=m – szerokość tułowia,
 # const hro = 0.84		# hro=m – wysokość tułowia,

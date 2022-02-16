@@ -3,6 +3,7 @@ using DifferentialEquations
 
 # Write your package code here.
 include("matlab_base/model_constants.jl")
+include("matlab_base/funshapeex.jl")
 
 include("kinetic_energy.jl")
 export kinetic_energy

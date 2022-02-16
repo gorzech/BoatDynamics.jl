@@ -1,6 +1,6 @@
 #differential equation 1
 function Q(θ)
-    Q_g(θ) #+ Q_BUOY() + Q_VA() + Q_AE() + Q_T() + Q_ROAE()
+    Q_g(θ) #+ Q_BUOY(θ, bh2o) + Q_VA() + Q_AE() + Q_T() + Q_ROAE()
 end
 
 # xoab = xoabme - xo
@@ -30,14 +30,12 @@ function Q_g(θ)
     # Here is also a difference
     Mg_OA = m_OA * g * (l_OAMX + l_OAMN) * cos(γ_OA) * cos(θ)
     # moa * g * (loamx + loamn) * cos(gamoa) * (cos(θ) + sin(θ))
-
+    @debug "Mg parts are as follows: " Mg_RG Mg_w Mg_fs Mg_f Mg_k Mg_t Mg_s Mg_OA
     Mg = Mg_RG + Mg_w + Mg_fs + 2Mg_f + Mg_k + 2Mg_t + 2Mg_s + 2Mg_OA
     [Xg, Zg, Mg]
 end
 
-function Q_BUOY()
-    # sxvh2o(the,bh2o)=x1vh2o(the,bh2o)-xo.*vh2o(the,bh2o);
-    # szvh2o(the,bh2o)=z1vh2o(the,bh2o)-zo.*vh2o(the,bh2o);
+function Q_BUOY(θ, bh2o)
     F_BUOY = -rhoh2o * g * vh2o(θ, bh2o)
     X = F_BUOY * sin(θ)
     Z = F_BUOY * cos(θ)
