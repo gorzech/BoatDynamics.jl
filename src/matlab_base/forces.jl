@@ -1,33 +1,32 @@
 #differential equation 1
-function Q()
-    Q_g() + Q_BUOY() + Q_VA() + Q_AE() + Q_T() + Q_ROAE()
+function Q(θ)
+    Q_g(θ) #+ Q_BUOY() + Q_VA() + Q_AE() + Q_T() + Q_ROAE()
 end
 
-xsb = xsbme - xo
-xoab = xoabme - xo
+# xoab = xoabme - xo
 
-function Q_g()
+function Q_g(θ)
     Xg = m_total * g * sin(θ)
     Zg = m_total * g * cos(θ)
     Mg_RG = m_RG * g * x_OAB * cos(θ)
-    Mg_w = m_w * g * (l_t * cos(θ_t) + l_s * cos(F_0(θ_t)) + xsb) * cos(θ)
-    Mg_fs = m_fs * g * xsb * cos(θ)
-    Mg_f = m_f * g * xsb * cos(θ)
+    Mg_w = m_w * g * (l_t * cos(θ_t) + l_s * cos(F_0(θ_t)) + x_SB) * cos(θ)
+    Mg_fs = m_fs * g * x_SB * cos(θ)
+    Mg_f = m_f * g * x_SB * cos(θ)
     Mg_k =
         m_k *
         g *
         (
-            (l_t * cos(θ_t) + l_s * cos(F_0(θ_t)) + xsb - 0.5l_k * cos(θ_k)) * cos(θ) +
+            (l_t * cos(θ_t) + l_s * cos(F_0(θ_t)) + x_SB - 0.5l_k * cos(θ_k)) * cos(θ) +
             0.5l_k * sin(θ_k) * sin(θ)
         )
     Mg_t =
         m_t *
         g *
         (
-            (0.5l_t * cos(θ_t) + l_s * cos(F_0(θ_t)) + xsb) * cos(θ) +
+            (0.5l_t * cos(θ_t) + l_s * cos(F_0(θ_t)) + x_SB) * cos(θ) +
             0.5l_t * sin(θ_t) * sin(θ)
         )
-    Mg_s = m_s * g * ((0.5l_s * cos(F_0(θ_t)) + xsb) * cos(θ) + 0.5l_t * sin(θ_t) * sin(θ))
+    Mg_s = m_s * g * ((0.5l_s * cos(F_0(θ_t)) + x_SB) * cos(θ) + 0.5l_t * sin(θ_t) * sin(θ))
     # Here is also a difference
     Mg_OA = m_OA * g * (l_OAMX + l_OAMN) * cos(γ_OA) * cos(θ)
     # moa * g * (loamx + loamn) * cos(gamoa) * (cos(θ) + sin(θ))

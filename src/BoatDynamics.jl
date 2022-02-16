@@ -2,6 +2,8 @@ module BoatDynamics
 using DifferentialEquations
 
 # Write your package code here.
+include("matlab_base/model_constants.jl")
+
 include("kinetic_energy.jl")
 export kinetic_energy
 
