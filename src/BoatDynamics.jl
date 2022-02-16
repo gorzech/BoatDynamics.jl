@@ -5,6 +5,8 @@ using DifferentialEquations
 include("kinetic_energy.jl")
 export kinetic_energy
 
+include("matlab_base/forces.jl")
+
 include("symbolic/sym_kinetic_energy.jl")
 include("symbolic/sym_generate_equations.jl")
 export generate_equations_of_motion # For tests under development
