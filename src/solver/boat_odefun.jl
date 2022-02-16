@@ -9,9 +9,9 @@ function boatode!(dy, y, p, t)
     w = y[5]
     θ′ = y[6]
 
-    A = system_lhs([u, w, θ′])
+    A = system_lhs(SA[u, w, θ′])
 
-    b = system_rhs([u, w, θ′, t])
+    b = system_rhs(SA[u, w, θ′, t])
 
     st, ct = sincos(θ)
     Tinv = [

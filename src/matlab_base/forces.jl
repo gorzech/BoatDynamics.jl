@@ -32,7 +32,7 @@ function Q_g(θ)
     # moa * g * (loamx + loamn) * cos(gamoa) * (cos(θ) + sin(θ))
     @debug "Mg parts are as follows: " Mg_RG Mg_w Mg_fs Mg_f Mg_k Mg_t Mg_s Mg_OA
     Mg = Mg_RG + Mg_w + Mg_fs + 2Mg_f + Mg_k + 2Mg_t + 2Mg_s + 2Mg_OA
-    [Xg, Zg, Mg]
+    SA[Xg, Zg, Mg]
 end
 
 function Q_BUOY(θ, bh2o)
@@ -40,7 +40,7 @@ function Q_BUOY(θ, bh2o)
     X = F_BUOY * sin(θ)
     Z = F_BUOY * cos(θ)
     M_BUOY = -rhoh2o * g * (szvh2o(θ, bh2o) * sin(θ) + sxvh2o(θ, bh2o) * cos(θ))
-    [X, Z, M_BUOY]
+    SA[X, Z, M_BUOY]
 end
 
 function Q_VA()

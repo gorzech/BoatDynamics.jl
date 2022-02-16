@@ -1,5 +1,7 @@
 module BoatDynamics
+using LinearAlgebra
 using DifferentialEquations
+using StaticArrays
 
 # Write your package code here.
 include("matlab_base/model_constants.jl")
