@@ -1,3 +1,6 @@
+const m_total = m_B + m_RG + m_w + m_fs + m_k + 2m_t + 2m_f + 2m_s + 2m_OA # Masa łodzi i wioślarza
+const m_move = m_w + m_k + 2m_t # masa w ruchu - wózek + bryła ciała + uda
+
 function kinetic_energy(
     u,
     w,

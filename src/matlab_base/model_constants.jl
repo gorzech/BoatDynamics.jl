@@ -4,7 +4,7 @@ const x_SB = 3.28# xsb=m - współrzędna po?o?enia podnó?ka,
 const l_t = 0.51# lt=m – długość uda,
 const l_s = 0.49# ls=m – długość podudzia,
 
-const m_B = 10                # kg - masa łodzi
+#### const m_B = 10                # kg - masa łodzi
 # const mzaw = 85		    # kg – masa wioślarza
 const m_f = 1.7    # kg – masa stopy, (2% Masy wioślarza)
 const m_t = 10.2# kg – masa uda, (12% Masy wioślarza)
@@ -14,15 +14,11 @@ const m_w = 0.5    # kg – masa wózka,
 const m_fs = 1.5# kg – masa podnóżka,
 const m_RG = 1.0# kg – masa odsadni,
 const m_OA = 1.6# kg – masa wiosła,
-const m_total = m_B + m_RG + m_w + m_fs + m_k + 2m_t + 2m_f + 2m_s + 2m_OA # Masa łodzi i wioślarza
-const m_move = m_w + m_k + 2m_t # masa w ruchu - wózek + bryła ciała + uda
 
 const l_OAMX = 2.00# loamx=m – współrzędna max wiosła
 const l_OAMN = -0.89# loamn=-m – współrzędna min wiosła
 const x_OAB = 5.18# xoab=m – położenie dulki od płaszczyzny yz (Odległość dulki od rufy) 
 const y_OAB = 0.83# yoab=m – położenie dulki od płaszczyzny xz, (Odległość od płaszczyzny symetrii
-
-const J_By = 65.796483126826487 # Moment bezwładności łodzi
 
 # θ_t - kąt pomiędzy udem a osią x
 # Jest funkcją czasu ale dla testów załóżmy, że jest stały
