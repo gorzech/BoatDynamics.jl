@@ -29,31 +29,34 @@ function boatode!(dy, y, p, t)
     # y contains int(u,t), int(w, t), the - position level coordinates
     # as well as u, w, the1  - velocity level coordinates
     # xl = y[1]  #-  NOT USED
-    zl = y[2]
-    θ = y[3]
-    u = y[4]
-    w = y[5]
-    θ′ = y[6]
-
+    # _, zl, θ, u, w, θ′ = y
+    _, zl, θ, x′, z′, θ′ = y
+    
     # p is currently just bh2o_0
     # bh2o = p.bh2o_0 - zl / cos(θ);
     # if bh2o < zmax-hb || bh2o > zmax
     #     @warn "bh2o value in boatode! out of range" bh2o
     # end
+    sθ, cθ = sincos(θ)
+    R = SA[cθ sθ; -sθ cθ]
+    Ω = SA[0 -1; 1 0]
+    X′ = SA[x′, z′]
+    u, w = R * X′
 
     A = system_lhs(SA[u, w, θ′])
     b = system_rhs(SA[u, w, θ′, t])
     F = SA[0.0, 0.0, 0.0] # Q(θ, 0.0)
+    U′ = A \ (b + F)
+    
+    dy[1:3] = y[4:6]
+    # X''
+    dy[4:5] = R' * (U′[1:2] - Ω * R * X′ .* θ′)
+    dy[6] = U′[3]
 
-    st, ct = sincos(θ)
-    Tinv = SA[
-        ct -st 0
-        st ct 0
-        0 0 1
-    ]
-
-    dy[1:3] = Tinv * y[4:6]
-    dy[4:6] = A \ (b + F)
+    # dy[1] = u*cθ - w*sθ
+    # dy[2] = u*sθ + w*cθ
+    # dy[3] = θ′
+    # dy[4:6] = A \ (b + F)
 end
 
 function solve_boat(; x0 = 0.0, z0 = 0.0, θ0 = 0.0, u0 = 0.0, w0 = 0.0, θ′0 = 0.0, t_end = 0.5)
@@ -63,5 +66,5 @@ function solve_boat(; x0 = 0.0, z0 = 0.0, θ0 = 0.0, u0 = 0.0, w0 = 0.0, θ′0 
     tspan = (0.0, t_end)
     prob = ODEProblem(boatode!, y0, tspan, (bh2o_0 = bh2o_0,))
 
-    solve(prob, abstol = 1e-9, reltol = 1e-7, saveat = 0.02)
+    solve(prob, abstol = 1e-9, reltol = 1e-7, saveat = 0.01)
 end

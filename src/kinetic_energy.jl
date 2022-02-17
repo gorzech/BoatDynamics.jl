@@ -46,41 +46,48 @@ function kinetic_energy(
         3x_SB * l_t / 2 * cos(θ_t) +
         2x_SB * l_s * cos(F_0(θ_t))
 
+    # Full
+    # (
+    #     0.5m_total * (u^2 + w^2) +
+    #     0.5J_By * θ′^2 +
+    #     0.5m_move * (l_s * F_1(θ_t) + l_t)^2 * θ′_t^2 * sin(θ_t)^2 +
+    #     0.5m_move * jt * (θ′ + θ′_t)^2 +
+    #     0.5m_move * jk * (θ′ + θ′_k)^2 +
+    #     (m_s + m_f + 0.5m_fs) * θ′^2 * x_SB^2 + # Tutaj tez w jednej z wersji jest 0.25 zamiast 0.5
+    #     0.5m_RG * θ′^2 * x_OAB^2 + 
+    #     m_s * (l_s^2 / 3 + x_SB^2 + x_SB * l_s * cos(F_0(θ_t))) * (θ′ - θ′_t * F_1(θ_t))^2 +
+    #     m_OA *
+    #     (
+    #         (l_OAMX^2 + l_OAMX * l_OAMN + l_OAMN^2) / 3 +
+    #         y_OAB^2 +
+    #         y_OAB * (l_OAMX + l_OAMN) * sin(γ_OA)
+    #     )γ′_OA^2 - m_move * (l_s * F_1(θ_t) + l_t)θ′_t * u * sin(θ_t) +
+    #     m_k *
+    #     (
+    #         u * l_k / 2 * sin(θ_k) -
+    #         w * (l_t * cos(θ_t) + l_s * cos(F_0(θ_t)) - l_k / 2 * cos(θ_k) + x_SB)
+    #     ) *
+    #     (θ′ + θ′_k) +
+    #     2m_t *
+    #     (u * l_t / 2 * sin(θ_t) - w * (l_t / 2 * cos(θ_t) + l_s * cos(F_0(θ_t)) + x_SB)) *
+    #     (θ′ + θ′_t) +
+    #     2m_s *
+    #     (u * l_s / 2 * sin(F_0(θ_t)) - w * (l_s / 2 * cos(F_0(θ_t)) + x_SB)) *
+    #     (θ′ - θ′_t * F_1(θ_t)) -
+    #     m_move * (l_t / 2 * cos(θ_t) + l_s * cos(F_0(θ_t)) + x_SB) * θ′ * w + # po dodaniu tego, otrzymywałem ujemne wartości energii kinetycznej
+    #     m_k * jjk * θ′ * (θ′ + θ′_k) +
+    #     2m_t * jjt * θ′ * (θ′ + θ′_t) +
+    #     2m_s * x_SB * (l_s / 2 * cos(F_0(θ_t)) + x_SB) * θ′ * (θ′ - θ′_t * F_1(θ_t)) -
+    #     m_t * l_t * (l_s * F_1(θ_t) + l_t) * θ′_t * (θ′ + θ′_t) * sin(θ_t)^2 -
+    #     0.5m_k * l_k * (l_s * F_1(θ_t) + l_t) * θ′_t * (θ′ + θ′_k) * sin(θ_t) * sin(θ_k) -
+    #     2(m_f + m_s + 0.5m_fs)x_SB * θ′ * w + m_RG * x_OAB * θ′ * w - 
+    #     2m_OA * (y_OAB + (l_OAMX + l_OAMN) / 2 * sin(γ_OA)) * γ′_OA * u
+    # )
+    
     (
         0.5m_total * (u^2 + w^2) +
         0.5J_By * θ′^2 +
-        0.5m_move * (l_s * F_1(θ_t) + l_t)^2 * θ′_t^2 * sin(θ_t)^2 +
-        0.5m_move * jt * (θ′ + θ′_t)^2 +
-        0.5m_move * jk * (θ′ + θ′_k)^2 +
-        (m_s + m_f + 0.5m_fs) * θ′^2 * x_SB^2 + # Tutaj tez w jednej z wersji jest 0.25 zamiast 0.5
-        0.5m_RG * θ′^2 * x_OAB^2 + 
-        m_s * (l_s^2 / 3 + x_SB^2 + x_SB * l_s * cos(F_0(θ_t))) * (θ′ - θ′_t * F_1(θ_t))^2 +
-        m_OA *
-        (
-            (l_OAMX^2 + l_OAMX * l_OAMN + l_OAMN^2) / 3 +
-            y_OAB^2 +
-            y_OAB * (l_OAMX + l_OAMN) * sin(γ_OA)
-        )γ′_OA^2 - m_move * (l_s * F_1(θ_t) + l_t)θ′_t * u * sin(θ_t) +
-        m_k *
-        (
-            u * l_k / 2 * sin(θ_k) -
-            w * (l_t * cos(θ_t) + l_s * cos(F_0(θ_t)) - l_k / 2 * cos(θ_k) + x_SB)
-        ) *
-        (θ′ + θ′_k) +
-        2m_t *
-        (u * l_t / 2 * sin(θ_t) - w * (l_t / 2 * cos(θ_t) + l_s * cos(F_0(θ_t)) + x_SB)) *
-        (θ′ + θ′_t) +
-        2m_s *
-        (u * l_s / 2 * sin(F_0(θ_t)) - w * (l_s / 2 * cos(F_0(θ_t)) + x_SB)) *
-        (θ′ - θ′_t * F_1(θ_t)) -
-        m_move * (l_t / 2 * cos(θ_t) + l_s * cos(F_0(θ_t)) + x_SB) * θ′ * w + # po dodaniu tego, otrzymywałem ujemne wartości energii kinetycznej
-        m_k * jjk * θ′ * (θ′ + θ′_k) +
-        2m_t * jjt * θ′ * (θ′ + θ′_t) +
-        2m_s * x_SB * (l_s / 2 * cos(F_0(θ_t)) + x_SB) * θ′ * (θ′ - θ′_t * F_1(θ_t)) -
-        m_t * l_t * (l_s * F_1(θ_t) + l_t) * θ′_t * (θ′ + θ′_t) * sin(θ_t)^2 -
-        0.5m_k * l_k * (l_s * F_1(θ_t) + l_t) * θ′_t * (θ′ + θ′_k) * sin(θ_t) * sin(θ_k) -
-        2(m_f + m_s + 0.5m_fs)x_SB * θ′ * w + m_RG * x_OAB * θ′ * w - 
-        2m_OA * (y_OAB + (l_OAMX + l_OAMN) / 2 * sin(γ_OA)) * γ′_OA * u
+        0.5m_RG * θ′^2 * x_OAB^2 - m_RG * x_OAB * θ′ * w - m_B * xo  * θ′ * w + m_B * zo  * θ′ * u
     )
 end
 
