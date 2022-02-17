@@ -1,6 +1,6 @@
 ## All are used in kinetic energy
 const l_k = 0.84# lk=m – wysokość bryły I (wysokość czubka g?owy od kr?tarza) 
-const x_SB = 3.28# xsb=m - współrzędna po?o?enia podnó?ka,
+const x_SBME = 3.28# xsb=m - współrzędna po?o?enia podnó?ka,
 const l_t = 0.51# lt=m – długość uda,
 const l_s = 0.49# ls=m – długość podudzia,
 
@@ -17,7 +17,7 @@ const m_OA = 1.6# kg – masa wiosła,
 
 const l_OAMX = 2.00# loamx=m – współrzędna max wiosła
 const l_OAMN = -0.89# loamn=-m – współrzędna min wiosła
-const x_OAB = 5.18# xoab=m – położenie dulki od płaszczyzny yz (Odległość dulki od rufy) 
+const x_OABME = 5.18# xoab=m – położenie dulki od płaszczyzny yz (Odległość dulki od rufy) 
 const y_OAB = 0.83# yoab=m – położenie dulki od płaszczyzny xz, (Odległość od płaszczyzny symetrii
 
 # θ_t - kąt pomiędzy udem a osią x

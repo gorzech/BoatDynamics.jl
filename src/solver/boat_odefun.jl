@@ -35,25 +35,33 @@ function boatode!(dy, y, p, t)
     w = y[5]
     θ′ = y[6]
 
-    A = system_lhs(SA[u, w, θ′])
+    # p is currently just bh2o_0
+    # bh2o = p.bh2o_0 - zl / cos(θ);
+    # if bh2o < zmax-hb || bh2o > zmax
+    #     @warn "bh2o value in boatode! out of range" bh2o
+    # end
 
+    A = system_lhs(SA[u, w, θ′])
     b = system_rhs(SA[u, w, θ′, t])
+    F = SA[0.0, 0.0, 0.0] # Q(θ, 0.0)
 
     st, ct = sincos(θ)
-    Tinv = [
+    Tinv = SA[
         ct -st 0
         st ct 0
         0 0 1
     ]
 
-    dy[1:3] .= Tinv * y[4:6]
-    dy[4:6] .= A \ b
+    dy[1:3] = Tinv * y[4:6]
+    dy[4:6] = A \ (b + F)
 end
 
 function solve_boat(; x0 = 0.0, z0 = 0.0, θ0 = 0.0, u0 = 0.0, w0 = 0.0, θ′0 = 0.0, t_end = 0.5)
+    bh2o_0 = bh2o0(θ0)
+
     y0 = [x0, z0, θ0, u0, w0, θ′0]
     tspan = (0.0, t_end)
-    prob = ODEProblem(boatode!, y0, tspan)
+    prob = ODEProblem(boatode!, y0, tspan, (bh2o_0 = bh2o_0,))
 
     solve(prob, abstol = 1e-9, reltol = 1e-7, saveat = 0.02)
 end

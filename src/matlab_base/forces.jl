@@ -1,6 +1,6 @@
 #differential equation 1
-function Q(θ)
-    Q_g(θ) #+ Q_BUOY(θ, bh2o) + Q_VA(θ, u, w, bh2o, x1va) + Q_AE() + Q_T() + Q_ROAE()
+function Q(θ, bh2o)
+    Q_g(θ) #+ Q_BUOY(θ, bh2o) #+ Q_VA(θ, u, w, bh2o, x1va) + Q_AE(θ, u, w, bh2o, x1air) + Q_T() + Q_ROAE(θ, u, w, x1air)
 end
 
 # xoab = xoabme - xo

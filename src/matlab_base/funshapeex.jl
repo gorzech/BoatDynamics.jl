@@ -185,6 +185,9 @@ const zo = szmb / m_B
 const J_By = rhob * deltab * (x2snb + z2snb) + rhod * deltad * (x2sbd + z2sbd - x2sbde - z2sbde) + rhog * deltag * (x2sbdg + z2sbdg) - m_B * (xo^2 + zo^2)
 const sbof = snb + sbd
 
+const x_SB = x_SBME - xo
+const x_OAB = x_OABME - xo 
+
 # xxbm(x,z)=int(2*fi2m(x,z),z);
 # xxbme(x,z)=-((bb*z*(z^2 - 3*z*zmax + 3*zmax^2))/3 + (bb*hb*z*(3*z - 6*zmax))/3)/hb^2;
 # xxbmev(x)=xxbme(x,zmax)-xxbme(x,zmax-hb);
