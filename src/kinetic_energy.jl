@@ -86,8 +86,9 @@ function kinetic_energy(
     
     (
         0.5m_total * (u^2 + w^2) +
-        0.5J_By * θ′^2 +
-        0.5m_RG * θ′^2 * x_OAB^2 - m_RG * x_OAB * θ′ * w - m_B * xo  * θ′ * w + m_B * zo  * θ′ * u
+        0.5J_By * θ′^2 #+
+        #0.5m_RG * θ′^2 * x_OAB^2 - m_RG * x_OAB * θ′ * w 
+        - sxmb  * θ′ * w + szmb  * θ′ * u
     )
 end
 

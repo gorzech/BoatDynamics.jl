@@ -12,7 +12,7 @@ const m_s = 0.0#4.25# kg – masa podudzia, (5% Masy wioślarza)
 const m_k = 0.0#52.7# kg masa bryły I (głowa+tułów+2(ręka+ przedramię+ramię))
 const m_w = 0.0#0.5    # kg – masa wózka,
 const m_fs = 0.0#1.5# kg – masa podnóżka,
-const m_RG = 1.0# kg – masa odsadni,
+const m_RG = 0.0#1.0# kg – masa odsadni,
 const m_OA = 0.0#1.6# kg – masa wiosła,
 
 const l_OAMX = 2.00# loamx=m – współrzędna max wiosła
