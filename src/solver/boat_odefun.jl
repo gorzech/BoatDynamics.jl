@@ -49,7 +49,7 @@ function boatode!(dy, y, p, t)
 
     M = system_lhs(SA[u, w, θ′])
     b = system_rhs(SA[u, w, θ′, t])
-    F = SA[0.0, 0.0, 0.0] # Q(θ, 0.0)
+    F = Q(θ, 0.0)
 
     dy[1:2] = R * U
     dy[3] = θ′

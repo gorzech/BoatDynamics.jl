@@ -6,8 +6,10 @@ end
 # xoab = xoabme - xo
 
 function Q_g(θ)
-    Xg = m_total * g * sin(θ)
+    Xg = -m_total * g * sin(θ)
     Zg = m_total * g * cos(θ)
+    # Mg_B = m_B * g * (sxmb * cos(θ) + szmb * sin(θ))
+    Mg_B = -m_B * g * (xo * cos(θ) + zo * sin(θ))
     Mg_RG = m_RG * g * x_OAB * cos(θ)
     Mg_w = m_w * g * (l_t * cos(θ_t) + l_s * cos(F_0(θ_t)) + x_SB) * cos(θ)
     Mg_fs = m_fs * g * x_SB * cos(θ)
@@ -31,13 +33,13 @@ function Q_g(θ)
     Mg_OA = m_OA * g * (l_OAMX + l_OAMN) * cos(γ_OA) * cos(θ)
     # moa * g * (loamx + loamn) * cos(gamoa) * (cos(θ) + sin(θ))
     @debug "Mg parts are as follows: " Mg_RG Mg_w Mg_fs Mg_f Mg_k Mg_t Mg_s Mg_OA
-    Mg = Mg_RG + Mg_w + Mg_fs + 2Mg_f + Mg_k + 2Mg_t + 2Mg_s + 2Mg_OA
+    Mg = Mg_RG + Mg_w + Mg_fs + 2Mg_f + Mg_k + 2Mg_t + 2Mg_s + 2Mg_OA + Mg_B
     SA[Xg, Zg, Mg]
 end
 
 function Q_BUOY(θ, bh2o)
     F_BUOY = -rhoh2o * g * vh2o(θ, bh2o)
-    X = F_BUOY * sin(θ)
+    X = -F_BUOY * sin(θ)
     Z = F_BUOY * cos(θ)
     M_BUOY = -rhoh2o * g * (szvh2o(θ, bh2o) * sin(θ) + sxvh2o(θ, bh2o) * cos(θ))
     SA[X, Z, M_BUOY]
