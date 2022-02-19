@@ -1,5 +1,6 @@
-const m_total = m_B + m_RG + m_w + m_fs + m_k + 2m_t + 2m_f + 2m_s + 2m_OA # Masa łodzi i wioślarza
-const m_move = m_w + m_k + 2m_t # masa w ruchu - wózek + bryła ciała + uda
+const m_total = m_B + m_RG + m_fs + m_k + 2m_t + 2m_f + 2m_s + 2m_OA # Masa łodzi i wioślarza
+const m_move = m_k + 2m_t # masa w ruchu - wózek + bryła ciała + uda
+const m = m_total + m_w
 
 function kinetic_energy(
     u,
@@ -12,6 +13,10 @@ function kinetic_energy(
     γ_OA = γ_OA,
     γ′_OA = γ′_OA,
 )
+    V_B0 = SA[u, w]
+    V_w = V_B0 + r′_w(θ_t, θ′_t) + crossθ(θ′, r_w(θ_t))
+    T_w = 0.5 * dot(V_w, V_w) * m_w
+    
     jt =
         l_s^2 * cos(F_0(θ_t))^2 +
         x_SB^2 +
@@ -49,7 +54,7 @@ function kinetic_energy(
     # Full
     (
         0.5m_total * (u^2 + w^2) +
-        0.5J_By * θ′^2 - sxmb  * θ′ * w + szmb  * θ′ * u +
+        0.5J_By * θ′^2 + T_w +
         0.5m_move * (l_s * F_1(θ_t) + l_t)^2 * θ′_t^2 * sin(θ_t)^2 +
         0.5m_move * jt * (θ′ + θ′_t)^2 +
         0.5m_move * jk * (θ′ + θ′_k)^2 +
@@ -85,5 +90,3 @@ function kinetic_energy(
     )
 end
 
-F_0(θ_t) = asin(l_t / l_s * sin(θ_t))
-F_1(θ_t) = (l_t / l_s * cos(θ_t)) / (1 - (l_t / l_s * sin(θ_t))^2)^0.5

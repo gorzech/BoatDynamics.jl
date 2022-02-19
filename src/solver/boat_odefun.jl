@@ -1,4 +1,4 @@
-function bisectionMethodError(f, a, b, tol; maxiter = 200) #f=@(x)x^2-3; a=1; b=2; (ensure change of sign between a and b) error=1e-4
+function bisectionMethodError(f, a, b, tol; maxiter = 1000) #f=@(x)x^2-3; a=1; b=2; (ensure change of sign between a and b) error=1e-4
     c = (a + b) / 2
     ftry(x) =
         try
@@ -27,7 +27,7 @@ end
 
 const vh2o_0 = m_total / rhoh2o
 find_bh2o(the) = (bh2o) -> vh2o_0 - vh2o(the, bh2o)
-bh2o0(the) = bisectionMethodError(find_bh2o(the), zmax - hb + 1e-10, zmax - 1e-10, 1e-10) # (zmax=>bh2o=>zmax-hb)
+bh2o0(the) = bisectionMethodError(find_bh2o(the), zmax - hb, zmax, 1e-12) # (zmax=>bh2o=>zmax-hb)
 
 function get_bh2o(z, θ, p)
     bh2o = p.bh2o_0 - z / cos(θ)
@@ -42,14 +42,14 @@ function boatode!(dy, y, p, t)
     # as well as u, w, the1  - velocity level coordinates
     x, z, θ, u, w, θ′ = y
 
-    # bh2o = get_bh2o(zl, θ, p)
+    bh2o = p.bh2o_0#get_bh2o(z, θ, p)
     sθ, cθ = sincos(θ)
     R = SA[cθ sθ; -sθ cθ]
     U = SA[u, w]
 
     M = system_lhs(SA[u, w, θ′])
     b = system_rhs(SA[u, w, θ′, t])
-    F = Q(θ, 0.0)
+    F = Q(θ, bh2o)
 
     dy[1:2] = R * U
     dy[3] = θ′

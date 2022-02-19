@@ -10,9 +10,9 @@ const m_f = 0.0#1.7    # kg – masa stopy, (2% Masy wioślarza)
 const m_t = 0.0#10.2# kg – masa uda, (12% Masy wioślarza)
 const m_s = 0.0#4.25# kg – masa podudzia, (5% Masy wioślarza)
 const m_k = 0.0#52.7# kg masa bryły I (głowa+tułów+2(ręka+ przedramię+ramię))
-const m_w = 0.0#0.5    # kg – masa wózka,
+const m_w = 0.5    # kg – masa wózka,
 const m_fs = 0.0#1.5# kg – masa podnóżka,
-const m_RG = 0.0#1.0# kg – masa odsadni,
+const m_RG = 1.0# kg – masa odsadni,
 const m_OA = 0.0#1.6# kg – masa wiosła,
 
 const l_OAMX = 2.00# loamx=m – współrzędna max wiosła
@@ -22,16 +22,16 @@ const y_OAB = 0.83# yoab=m – położenie dulki od płaszczyzny xz, (Odległoś
 
 # θ_t - kąt pomiędzy udem a osią x
 # Jest funkcją czasu ale dla testów załóżmy, że jest stały
-const θ_t = 22.5 # normalnie w przedziale 0-45
+const θ_t = deg2rad(22.5) # normalnie w przedziale 0-45
 const θ′_t = 0.0
 const θ′′_t = 0.0
 # θ_k kąty pomiędzy tułowiem a osią x
-const θ_k = 90.0 # 120 to 60
+const θ_k = deg2rad(90.0) # 120 to 60
 const θ′_k = 0.0
 const θ′′_k = 0.0
 
 # kąty obrotu wiosla
-const γ_OA = 75.0 # normalnie 30 do 120
+const γ_OA = deg2rad(75.0) # normalnie 30 do 120
 const γ′_OA = 0.0
 const γ′′_OA = 0.0
 

@@ -6,6 +6,7 @@ using StaticArrays
 # Write your package code here.
 include("matlab_base/model_constants.jl")
 include("matlab_base/funshapeex.jl")
+include("matlab_base/kinematics.jl")
 
 include("kinetic_energy.jl")
 export kinetic_energy
@@ -16,9 +17,9 @@ include("symbolic/sym_kinetic_energy.jl")
 include("symbolic/sym_generate_equations.jl")
 export generate_equations_of_motion # For tests under development
 
-if !isfile(joinpath(@__DIR__, "generated", "inertia_lhs.jl"))
+# if !isfile(joinpath(@__DIR__, "generated", "inertia_lhs.jl"))
     generate_equations_of_motion()
-end
+# end
 system_lhs = include("generated/inertia_lhs.jl")
 system_rhs = include("generated/inertia_rhs.jl")
 export system_lhs, system_rhs
