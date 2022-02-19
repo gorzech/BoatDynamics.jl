@@ -20,13 +20,9 @@ function Q_g(θ)
             0.5l_k * sin(θ_k) * sin(θ)
         )
     Mg_t =
-        -m_t *
-        g *
-        (
-            (0.5l_t * cos(θ_t) + l_s * cos(F_0(θ_t)) + x_SB) * cos(θ) +
-            0.5l_t * sin(θ_t) * sin(θ)
-        )
-    Mg_s = -m_s * g * ((0.5l_s * cos(F_0(θ_t)) + 2x_SB) * cos(θ) + 0.5l_t * sin(θ_t) * sin(θ))
+        -m_t * g * ((-0.5l_t * cos(θ_t) + 2x_w(θ_t)) * cos(θ) + 0.5l_t * sin(θ_t) * sin(θ))
+    Mg_s =
+        -m_s * g * ((0.5l_s * cos(F_0(θ_t)) + 2x_SB) * cos(θ) + 0.5l_t * sin(θ_t) * sin(θ))
     # Here is also a difference
     Mg_OA = -m_OA * g * (l_OAMX + l_OAMN) * cos(γ_OA) * cos(θ)
     # moa * g * (loamx + loamn) * cos(gamoa) * (cos(θ) + sin(θ))
