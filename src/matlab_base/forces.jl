@@ -10,25 +10,25 @@ function Q_g(θ)
     Zg = m * g * cos(θ)
     Mg_RG = -m_RG * g * x_OAB * cos(θ)
     Mg_w = -m_w * g * x_w(θ_t) * cos(θ)
-    Mg_fs = m_fs * g * x_SB * cos(θ)
-    Mg_f = m_f * g * x_SB * cos(θ)
+    Mg_fs = -m_fs * g * x_SB * cos(θ)
+    Mg_f = -m_f * g * x_SB * cos(θ)
     Mg_k =
-        m_k *
+        -m_k *
         g *
         (
             (l_t * cos(θ_t) + l_s * cos(F_0(θ_t)) + x_SB - 0.5l_k * cos(θ_k)) * cos(θ) +
             0.5l_k * sin(θ_k) * sin(θ)
         )
     Mg_t =
-        m_t *
+        -m_t *
         g *
         (
             (0.5l_t * cos(θ_t) + l_s * cos(F_0(θ_t)) + x_SB) * cos(θ) +
             0.5l_t * sin(θ_t) * sin(θ)
         )
-    Mg_s = m_s * g * ((0.5l_s * cos(F_0(θ_t)) + x_SB) * cos(θ) + 0.5l_t * sin(θ_t) * sin(θ))
+    Mg_s = -m_s * g * ((0.5l_s * cos(F_0(θ_t)) + 2x_SB) * cos(θ) + 0.5l_t * sin(θ_t) * sin(θ))
     # Here is also a difference
-    Mg_OA = m_OA * g * (l_OAMX + l_OAMN) * cos(γ_OA) * cos(θ)
+    Mg_OA = -m_OA * g * (l_OAMX + l_OAMN) * cos(γ_OA) * cos(θ)
     # moa * g * (loamx + loamn) * cos(gamoa) * (cos(θ) + sin(θ))
     @debug "Mg parts are as follows: " Mg_RG Mg_w Mg_fs Mg_f Mg_k Mg_t Mg_s Mg_OA
     Mg = Mg_RG + Mg_w + Mg_fs + 2Mg_f + Mg_k + 2Mg_t + 2Mg_s + 2Mg_OA

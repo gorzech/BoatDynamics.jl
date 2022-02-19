@@ -1,6 +1,6 @@
-const m_total = m_B + m_RG + m_fs + m_k + 2m_t + 2m_f + 2m_s + 2m_OA # Masa łodzi i wioślarza
+const m_total = m_B + m_RG + m_k + 2m_t + 2m_OA # Masa łodzi i wioślarza
 const m_move = m_k + 2m_t # masa w ruchu - wózek + bryła ciała + uda
-const m = m_total + m_w
+const m = m_total + m_w + m_fs + 2m_f + 2m_s
 
 function kinetic_energy(
     u,
@@ -16,7 +16,20 @@ function kinetic_energy(
     V_B0 = SA[u, w]
     V_w = V_B0 + r′_w(θ_t, θ′_t) + crossθ(θ′, r_w(θ_t))
     T_w = 0.5 * dot(V_w, V_w) * m_w
-    
+
+    V_f = V_B0 + crossθ(θ′, r_SB)
+    T_fs = 0.5 * dot(V_f, V_f) * m_fs
+    T_f = 0.5 * dot(V_f, V_f) * m_f
+
+    V_s_const = V_B0 + crossθ(θ′, r_SB) + crossθ(θ′ - θ′_s(θ_t, θ′_t), r_SB)
+    V_s_∂l_s = crossθ(θ′ - θ′_s(θ_t, θ′_t), r_S_∂l_s(θ_t))
+    T_s =
+        0.5m_s * (
+            dot(V_s_const, V_s_const) +
+            2dot(V_s_const, V_s_∂l_s) * 0.5l_s +
+            dot(V_s_∂l_s, V_s_∂l_s) * l_s^2 / 3
+        )
+
     jt =
         l_s^2 * cos(F_0(θ_t))^2 +
         x_SB^2 +
@@ -54,13 +67,15 @@ function kinetic_energy(
     # Full
     (
         0.5m_total * (u^2 + w^2) +
-        0.5J_By * θ′^2 + T_w +
+        0.5J_By * θ′^2 +
+        T_w +
+        T_fs +
+        2T_f +
+        2T_s +
         0.5m_move * (l_s * F_1(θ_t) + l_t)^2 * θ′_t^2 * sin(θ_t)^2 +
         0.5m_move * jt * (θ′ + θ′_t)^2 +
         0.5m_move * jk * (θ′ + θ′_k)^2 +
-        (m_s + m_f + 0.5m_fs) * θ′^2 * x_SB^2 + # Tutaj tez w jednej z wersji jest 0.25 zamiast 0.5
-        0.5m_RG * θ′^2 * x_OAB^2 + 
-        m_s * (l_s^2 / 3 + x_SB^2 + x_SB * l_s * cos(F_0(θ_t))) * (θ′ - θ′_t * F_1(θ_t))^2 +
+        0.5m_RG * θ′^2 * x_OAB^2 +
         m_OA *
         (
             (l_OAMX^2 + l_OAMX * l_OAMN + l_OAMN^2) / 3 +
@@ -75,17 +90,12 @@ function kinetic_energy(
         (θ′ + θ′_k) +
         2m_t *
         (u * l_t / 2 * sin(θ_t) - w * (l_t / 2 * cos(θ_t) + l_s * cos(F_0(θ_t)) + x_SB)) *
-        (θ′ + θ′_t) +
-        2m_s *
-        (u * l_s / 2 * sin(F_0(θ_t)) - w * (l_s / 2 * cos(F_0(θ_t)) + x_SB)) *
-        (θ′ - θ′_t * F_1(θ_t)) -
-        m_move * (l_t / 2 * cos(θ_t) + l_s * cos(F_0(θ_t)) + x_SB) * θ′ * w + # po dodaniu tego, otrzymywałem ujemne wartości energii kinetycznej
+        (θ′ + θ′_t) - m_move * (l_t / 2 * cos(θ_t) + l_s * cos(F_0(θ_t)) + x_SB) * θ′ * w + # po dodaniu tego, otrzymywałem ujemne wartości energii kinetycznej
         m_k * jjk * θ′ * (θ′ + θ′_k) +
-        2m_t * jjt * θ′ * (θ′ + θ′_t) +
-        2m_s * x_SB * (l_s / 2 * cos(F_0(θ_t)) + x_SB) * θ′ * (θ′ - θ′_t * F_1(θ_t)) -
+        2m_t * jjt * θ′ * (θ′ + θ′_t) -
         m_t * l_t * (l_s * F_1(θ_t) + l_t) * θ′_t * (θ′ + θ′_t) * sin(θ_t)^2 -
         0.5m_k * l_k * (l_s * F_1(θ_t) + l_t) * θ′_t * (θ′ + θ′_k) * sin(θ_t) * sin(θ_k) -
-        2(m_f + m_s + 0.5m_fs)x_SB * θ′ * w - m_RG * x_OAB * θ′ * w - 
+        m_RG * x_OAB * θ′ * w -
         2m_OA * (y_OAB + (l_OAMX + l_OAMN) / 2 * sin(γ_OA)) * γ′_OA * u
     )
 end
