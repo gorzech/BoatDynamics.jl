@@ -9,8 +9,8 @@ const l_s = 0.49# ls=m – długość podudzia,
 const m_f = 1.7     # kg – masa stopy, (2% Masy wioślarza)
 const m_t = 10.2    # kg – masa uda, (12% Masy wioślarza)
 const m_s = 4.25    # kg – masa podudzia, (5% Masy wioślarza)
-const m_k = 0.0#52.7# kg masa bryły I (głowa+tułów+2(ręka+ przedramię+ramię))
-const m_w = 0.5    # kg – masa wózka,
+const m_k = 52.7    # kg masa bryły I (głowa+tułów+2(ręka+ przedramię+ramię))
+const m_w = 0.5     # kg – masa wózka,
 const m_fs = 1.5    # kg – masa podnóżka,
 const m_RG = 1.0    # kg – masa odsadni,
 const m_OA = 0.0#1.6# kg – masa wiosła,

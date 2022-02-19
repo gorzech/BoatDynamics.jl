@@ -16,7 +16,7 @@ function Q_g(θ)
         -m_k *
         g *
         (
-            (l_t * cos(θ_t) + l_s * cos(F_0(θ_t)) + x_SB - 0.5l_k * cos(θ_k)) * cos(θ) +
+            (2x_w(θ_t) - 0.5l_k * cos(θ_k)) * cos(θ) +
             0.5l_k * sin(θ_k) * sin(θ)
         )
     Mg_t =

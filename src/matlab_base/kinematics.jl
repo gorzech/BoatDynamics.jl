@@ -21,3 +21,6 @@ const r_s_const = r_SB
 
 r_t_∂l_t(θ_t) = SA[-cos(θ_t), sin(θ_t)]
 r_t_const(θ_t) = r_w(θ_t)
+
+r_k_∂l_k(θ_k) = SA[-cos(θ_k), sin(θ_k)]
+r_k_const(θ_t) = r_w(θ_t)
