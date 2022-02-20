@@ -25,7 +25,7 @@ function bisectionMethodError(f, a, b, tol; maxiter = 1000) #f=@(x)x^2-3; a=1; b
     return c
 end
 
-const vh2o_0 = m_total / rhoh2o
+const vh2o_0 = m / rhoh2o
 find_bh2o(the) = (bh2o) -> vh2o_0 - vh2o(the, bh2o)
 bh2o0(the) = bisectionMethodError(find_bh2o(the), zmax - hb, zmax, 1e-12) # (zmax=>bh2o=>zmax-hb)
 
@@ -69,8 +69,8 @@ function solve_boat(;
 
     # Compute center of mass location to get consistent initial conditions
     M = system_lhs(SA[u0, w0, θ′0])
-    z_CF = M[1, 3] / m_total
-    x_CF = -M[2, 3] / m_total
+    z_CF = M[1, 3] / m
+    x_CF = -M[2, 3] / m
     y0 = [x0, z0, θ0, u0 - θ′0 * z_CF, w0 + θ′0 * x_CF, θ′0]
     
     tspan = (0.0, t_end)

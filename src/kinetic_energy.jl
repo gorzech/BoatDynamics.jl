@@ -1,5 +1,4 @@
-const m_total = m_B + m_RG + 2m_OA # Masa łodzi i wioślarza
-const m = m_total + m_w + m_fs + 2m_f + 2m_s + 2m_t + m_k
+const m = m_B + m_w + m_fs + 2m_f + 2m_s + 2m_t + m_k + m_RG + 2m_OA
 
 function kinetic_energy(
     u,
@@ -13,6 +12,10 @@ function kinetic_energy(
     γ′_OA = γ′_OA,
 )
     V_B0 = SA[u, w]
+
+    V_RG = V_B0 + crossθ(θ′, r_RG)
+    T_RG = 0.5 * dot(V_RG, V_RG) * m_RG
+
     V_w = V_B0 + r′_w(θ_t, θ′_t) + crossθ(θ′, r_w(θ_t))
     T_w = 0.5 * dot(V_w, V_w) * m_w
 
@@ -49,23 +52,21 @@ function kinetic_energy(
             dot(V_k_∂l_k, V_k_∂l_k) * l_k^2 / 3
         )
 
-    (
-        0.5m_total * (u^2 + w^2) +
-        0.5J_By * θ′^2 +
-        T_w +
-        T_fs +
-        2T_f +
-        2T_s +
-        2T_t +
-        T_k +
-        0.5m_RG * θ′^2 * x_OAB^2 +
-        m_OA *
-        (
-            (l_OAMX^2 + l_OAMX * l_OAMN + l_OAMN^2) / 3 +
-            y_OAB^2 +
-            y_OAB * (l_OAMX + l_OAMN) * sin(γ_OA)
-        )γ′_OA^2 - m_RG * x_OAB * θ′ * w -
-        2m_OA * (y_OAB + (l_OAMX + l_OAMN) / 2 * sin(γ_OA)) * γ′_OA * u
-    )
+    # V_OA = V_B0 +- γ′_OA x r_OA + θ′ x r_OA
+    V_OA_XZ_const = V_B0 + SA[-γ′_OA*y_OA_const, 0]
+    V_OA_XZ_∂l_OA = crossθ(θ′, SA[x_OA_∂l_OA(γ_OA), 0]) + SA[-γ′_OA*y_OA_∂l_OA(γ_OA), 0]
+    V_OA_Y_∂l_OA = γ′_OA * x_OA_∂l_OA(γ_OA)
+    V_OA_const = SA[V_OA_XZ_const[1], 0, V_OA_XZ_const[2]]
+    V_OA_∂l_OA = SA[V_OA_XZ_∂l_OA[1], V_OA_Y_∂l_OA, V_OA_XZ_∂l_OA[2]]
+    T_OA =
+        0.5m_OA * (
+            dot(V_OA_const, V_OA_const) +
+            2dot(V_OA_const, V_OA_∂l_OA) * 0.5(l_OAMX + l_OAMN) +
+            dot(V_OA_∂l_OA, V_OA_∂l_OA) * (l_OAMX^2 + l_OAMX * l_OAMN + l_OAMN^2) / 3
+        )
+
+    T_B = 0.5m_B * (u^2 + w^2) + 0.5J_By * θ′^2
+
+    T_B + T_RG + T_w + T_fs + 2T_f + 2T_s + 2T_t + T_k + 2T_OA
 end
 

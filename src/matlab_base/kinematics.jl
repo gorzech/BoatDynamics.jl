@@ -12,6 +12,8 @@ x′_w(θ_t, θ′_t) = -l_t * sin(θ_t) * θ′_t - l_s * sin(θ_s(θ_t)) * θ�
 
 r′_w(θ_t, θ′_t) = SA[x′_w(θ_t, θ′_t), 0]
 
+const r_RG = SA[x_OAB, 0]
+
 const r_SB = SA[x_SB, 0]
 
 crossθ(θ, v) = SA[θ*v[2], -θ*v[1]]
@@ -24,3 +26,7 @@ r_t_const(θ_t) = r_w(θ_t)
 
 r_k_∂l_k(θ_k) = SA[-cos(θ_k), sin(θ_k)]
 r_k_const(θ_t) = r_w(θ_t)
+
+x_OA_∂l_OA(γ_OA) = cos(γ_OA)
+const y_OA_const = y_OAB
+y_OA_∂l_OA(γ_OA) = sin(γ_OA)

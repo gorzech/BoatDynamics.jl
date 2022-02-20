@@ -13,7 +13,7 @@ const m_k = 52.7    # kg masa bryły I (głowa+tułów+2(ręka+ przedramię+rami
 const m_w = 0.5     # kg – masa wózka,
 const m_fs = 1.5    # kg – masa podnóżka,
 const m_RG = 1.0    # kg – masa odsadni,
-const m_OA = 0.0#1.6# kg – masa wiosła,
+const m_OA = 1.6    # kg – masa wiosła,
 
 const l_OAMX = 2.00# loamx=m – współrzędna max wiosła
 const l_OAMN = -0.89# loamn=-m – współrzędna min wiosła
