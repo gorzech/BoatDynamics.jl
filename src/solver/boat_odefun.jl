@@ -42,7 +42,8 @@ function boatode!(dy, y, p, t)
     # as well as u, w, the1  - velocity level coordinates
     x, z, θ, u, w, θ′ = y
 
-    bh2o = p.bh2o_0#get_bh2o(z, θ, p)
+    # bh2o = p.bh2o_0
+    bh2o = get_bh2o(z, θ, p)
     sθ, cθ = sincos(θ)
     R = SA[cθ sθ; -sθ cθ]
     U = SA[u, w]

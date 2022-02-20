@@ -1,9 +1,7 @@
 #differential equation 1
 function Q(θ, bh2o)
-    Q_g(θ) #+ Q_BUOY(θ, bh2o) #+ Q_VA(θ, u, w, bh2o, x1va) + Q_AE(θ, u, w, bh2o, x1air) + Q_T() + Q_ROAE(θ, u, w, x1air)
+    Q_g(θ) + Q_BUOY(θ, bh2o) #+ Q_VA(θ, u, w, bh2o, x1va) + Q_AE(θ, u, w, bh2o, x1air) + Q_T() + Q_ROAE(θ, u, w, x1air)
 end
-
-# xoab = xoabme - xo
 
 function Q_g(θ)
     sθ, cθ = sincos(θ)
@@ -30,7 +28,7 @@ function Q_BUOY(θ, bh2o)
     F_BUOY = -rhoh2o * g * vh2o(θ, bh2o)
     X = -F_BUOY * sin(θ)
     Z = F_BUOY * cos(θ)
-    M_BUOY = -rhoh2o * g * (szvh2o(θ, bh2o) * sin(θ) + sxvh2o(θ, bh2o) * cos(θ))
+    M_BUOY = rhoh2o * g * (szvh2o(θ, bh2o) * sin(θ) + sxvh2o(θ, bh2o) * cos(θ))
     SA[X, Z, M_BUOY]
 end
 
