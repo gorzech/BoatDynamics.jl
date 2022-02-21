@@ -1,6 +1,7 @@
 #differential equation 1
-function Q(θ, bh2o)
-    Q_g(θ) + Q_BUOY(θ, bh2o) #+ Q_VA(θ, u, w, bh2o, x1va) + Q_AE(θ, u, w, bh2o, x1air) + Q_T() + Q_ROAE(θ, u, w, x1air)
+function Q(u, w, θ, bh2o)
+    x1va = 0.0
+    Q_g(θ) + Q_BUOY(θ, bh2o) + Q_VA(u, w, θ, bh2o, x1va) #+ Q_AE(θ, u, w, bh2o, x1air) + Q_T() + Q_ROAE(θ, u, w, x1air)
 end
 
 function Q_g(θ)
@@ -32,10 +33,9 @@ function Q_BUOY(θ, bh2o)
     SA[X, Z, M_BUOY]
 end
 
-function Q_VA(θ, u, w, bh2o, x1va)
+function Q_VA(u, w, θ, bh2o, x1va)
     x1 = u * cos(θ) + w * sin(θ) - x1va
     sx1 = sign(x1)
-
     coeff = 0.5rhoh2o * x1^2 * sx1
 
     R_SHAPE = coeff * cdx * tvmh2o(θ) / cos(θ)
@@ -43,11 +43,11 @@ function Q_VA(θ, u, w, bh2o, x1va)
     R_VAVE = coeff * cdw * yth2ov(θ, bh2o)
     R_VA = R_SHAPE + R_VIS + R_VAVE
     X_VA = -R_VA * cos(θ)
-    Z_VA = R_VA * sin(θ)
-    M_SHAPE = -coeff * cdx * sztvmh2o(θ, bh2o) ./ cos(θ)
+    Z_VA = -R_VA * sin(θ)
+    M_SHAPE = coeff * cdx * sztvmh2o(θ, bh2o) ./ cos(θ)
     M_VIS =
-        -coeff * cf0 * (szsvbh2o(θ, bh2o) * cos(θ) + sxsvbh2o(θ, bh2o) * sin(θ)) * freh2o
-    M_VAVE = -coeff * cdw * (z1yth2ov(θ, bh2o) * cos(θ) + x1yth2ov(θ, bh2o) * sin(θ))
+        coeff * cf0 * (szsvbh2o(θ, bh2o) * cos(θ) + sxsvbh2o(θ, bh2o) * sin(θ)) * freh2o
+    M_VAVE = coeff * cdw * (z1yth2ov(θ, bh2o) * cos(θ) + x1yth2ov(θ, bh2o) * sin(θ))
     M_VA = M_SHAPE + M_VIS + M_VAVE
     SA[X_VA, Z_VA, M_VA]
 end
