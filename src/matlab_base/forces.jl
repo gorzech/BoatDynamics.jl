@@ -1,8 +1,8 @@
 #differential equation 1
-function Q(u, w, θ, bh2o)
+function Q(θ, u, w, bh2o)
     x1va = 0.0
     x1air = 0.0
-    Q_g(θ) + Q_BUOY(θ, bh2o) + Q_VA(u, w, θ, bh2o, x1va) + Q_AE(u, w, θ, bh2o, x1air) #+ Q_ROAE(θ, u, w, x1air)#+ Q_T() 
+    Q_g(θ) + Q_BUOY(θ, bh2o) + Q_VA(θ, u, w, bh2o, x1va) + Q_AE(θ, u, w, bh2o, x1air) + Q_ROAE(θ, u, w, x1air)#+ Q_T() 
 end
 
 function Q_g(θ)
@@ -34,7 +34,7 @@ function Q_BUOY(θ, bh2o)
     SA[X, Z, M_BUOY]
 end
 
-function Q_VA(u, w, θ, bh2o, x1va)
+function Q_VA(θ, u, w, bh2o, x1va)
     x1 = u * cos(θ) + w * sin(θ) - x1va
     sx1 = sign(x1)
     coeff = 0.5rhoh2o * x1^2 * sx1
@@ -53,7 +53,7 @@ function Q_VA(u, w, θ, bh2o, x1va)
     SA[X_VA, Z_VA, M_VA]
 end
 
-function Q_AE(u, w, θ, bh2o, x1air)
+function Q_AE(θ, u, w, bh2o, x1air)
     x1 = u * cos(θ) + w * sin(θ) - x1air
     sx1 = sign(x1)
 
@@ -73,14 +73,14 @@ function Q_T()
     SA[X_T, Z_T, 0]
 end
 
-function Q_ROAE(u, w, θ, x1air, θ_t=θ_t, θ′_t=θ′_t)
+function Q_ROAE(θ, u, w, x1air, θ_t=θ_t, θ′_t=θ′_t)
     # x1w = 0
     # or 
     x1w = x′_w(θ_t, θ′_t)
     x1 = u * cos(θ) + w * sin(θ) - x1air + x1w * cos(θ)
     sx1 = sign(x1)
 
-    coeff = 0.5rhoair * x1^2 * sx1 * 1e3
+    coeff = 0.5rhoair * x1^2 * sx1
     R_ROAE = coeff * sro * cdro
     X_ROAE = -R_ROAE * cos(θ)
     Z_ROAE = -R_ROAE * sin(θ)
