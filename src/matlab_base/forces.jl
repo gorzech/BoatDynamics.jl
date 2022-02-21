@@ -1,11 +1,22 @@
-#differential equation 1
-function Q(θ, u, w, bh2o)
-    x1va = 0.0
-    x1air = 0.0
-    Q_g(θ) + Q_BUOY(θ, bh2o) + Q_VA(θ, u, w, bh2o, x1va) + Q_AE(θ, u, w, bh2o, x1air) + Q_ROAE(θ, u, w, x1air)#+ Q_T() 
+struct Boat_sim_pars
+    bh2o::Float64
+    γ_OA::Float64
+    γ′_OA::Float64
+    γ′′_OA::Float64
 end
 
-function Q_g(θ)
+function Q(θ, u, w, bsp::Boat_sim_pars, t)
+    x1va = 0.0
+    x1air = 0.0
+    Q_g(θ, bsp.γ_OA) +
+    Q_BUOY(θ, bsp.bh2o) +
+    Q_VA(θ, u, w, bsp.bh2o, x1va) +
+    Q_AE(θ, u, w, bsp.bh2o, x1air) +
+    Q_ROAE(θ, u, w, x1air) +
+    Q_T(θ, u, w, x1va, bsp.γ_OA, bsp.γ′_OA, t)
+end
+
+function Q_g(θ, γ_OA)
     sθ, cθ = sincos(θ)
     Xg = -m * g * sθ
     Zg = m * g * cθ
@@ -46,8 +57,7 @@ function Q_VA(θ, u, w, bh2o, x1va)
     X_VA = -R_VA * cos(θ)
     Z_VA = -R_VA * sin(θ)
     M_SHAPE = coeff * cdx * sztvmh2o(θ, bh2o) ./ cos(θ)
-    M_VIS =
-        coeff * cf0 * (szsvbh2o(θ, bh2o) * cos(θ) + sxsvbh2o(θ, bh2o) * sin(θ)) * freh2o
+    M_VIS = coeff * cf0 * (szsvbh2o(θ, bh2o) * cos(θ) + sxsvbh2o(θ, bh2o) * sin(θ)) * freh2o
     M_VAVE = coeff * cdw * (z1yth2ov(θ, bh2o) * cos(θ) + x1yth2ov(θ, bh2o) * sin(θ))
     M_VA = M_SHAPE + M_VIS + M_VAVE
     SA[X_VA, Z_VA, M_VA]
@@ -65,15 +75,15 @@ function Q_AE(θ, u, w, bh2o, x1air)
     SA[X_AE, Z_AE, M_AE]
 end
 
-function Q_T()
-    F_OAR = foa(γ_OA, γ′_OA, θ, u, w, x1va, eta)
+function Q_T(θ, u, w, x1va, γ_OA, γ′_OA, t)
+    F_OAR = foa(γ_OA, γ′_OA, θ, u, w, x1va, t)
     T_OAR = 2F_OAR * sin(γ_OA)
     X_T = T_OAR * cos(θ)
-    Z_T = -T_OAR * sin(θ)
+    Z_T = T_OAR * sin(θ)
     SA[X_T, Z_T, 0]
 end
 
-function Q_ROAE(θ, u, w, x1air, θ_t=θ_t, θ′_t=θ′_t)
+function Q_ROAE(θ, u, w, x1air, θ_t = θ_t, θ′_t = θ′_t)
     # x1w = 0
     # or 
     x1w = x′_w(θ_t, θ′_t)

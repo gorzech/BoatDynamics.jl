@@ -40,17 +40,17 @@ end
 function boatode!(dy, y, p, t)
     # y contains int(u,t), int(w, t), the - position level coordinates
     # as well as u, w, the1  - velocity level coordinates
-    x, z, θ, u, w, θ′ = y
+    _, z, θ, u, w, θ′ = y
 
-    # bh2o = p.bh2o_0
-    bh2o = get_bh2o(z, θ, p)
+    bsp = Boat_sim_pars(get_bh2o(z, θ, p), γ_OA(t), γ′_OA(t), γ′′_OA(t))
+    # println(bsp)
     sθ, cθ = sincos(θ)
     R = SA[cθ sθ; -sθ cθ]
     U = SA[u, w]
 
-    M = system_lhs(SA[γ_OA])
-    b = system_rhs(SA[u, w, θ′, γ_OA, γ′_OA, γ′′_OA])
-    F = Q(θ, u, w, bh2o)
+    M = system_lhs(SA[bsp.γ_OA])
+    b = system_rhs(SA[u, w, θ′, bsp.γ_OA, bsp.γ′_OA, bsp.γ′′_OA])
+    F = Q(θ, u, w, bsp, t)
 
     dy[1:2] = R * U
     dy[3] = θ′
@@ -73,7 +73,7 @@ function solve_boat(;
     z_CF = M[1, 3] / m
     x_CF = -M[2, 3] / m
     y0 = [x0, z0, θ0, u0 - θ′0 * z_CF, w0 + θ′0 * x_CF, θ′0]
-    
+
     tspan = (0.0, t_end)
     prob = ODEProblem(boatode!, y0, tspan, (bh2o_0 = bh2o_0,))
 

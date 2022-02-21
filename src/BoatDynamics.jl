@@ -11,6 +11,7 @@ include("matlab_base/kinematics.jl")
 include("kinetic_energy.jl")
 export kinetic_energy
 
+include("matlab_base/oar_force.jl")
 include("matlab_base/forces.jl")
 
 include("symbolic/sym_kinetic_energy.jl")

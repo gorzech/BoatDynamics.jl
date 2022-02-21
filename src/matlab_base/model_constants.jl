@@ -31,9 +31,8 @@ const θ′_k = 0.0
 const θ′′_k = 0.0
 
 # kąty obrotu wiosla
-const γ_OA = deg2rad(75.0) # normalnie 30 do 120
-const γ′_OA = 0.0
-const γ′′_OA = 0.0
+const γ_OA_min = deg2rad(30.0) # normalnie 30 do 120
+const γ_OA_max = deg2rad(120.0) # normalnie 30 do 120
 
 ## Many others
 const g = 9.80665	# g=9.80665 m/s2 - przyspieszenie ziemskie,
@@ -76,11 +75,13 @@ const cdw = 0.02		# cdw=0.02 – współczynnik hydrodynamicznego oporu falowego
 const cdx = 0.01		# cdx=0.01 – współczynnik oporu hydrodynamicznego kształtu,
 const cdro = 1.05	# cdro – współczynnik oporu aerodynamicznego tułowia wioślarza.
 
-# const lomax = 2      # lomax=m - współrzędna max pióra wiosła
-# const lomin = 1.56   # lomin=m - współrzędna min pióra wiosła
-# const boac = 0.23    # boa=m - szerokość pióra wiosła
+const lomax = l_OAMX      # lomax=m - współrzędna max pióra wiosła
+const lomin = 1.56   # lomin=m - współrzędna min pióra wiosła
+const boac = 0.23    # boa=m - szerokość pióra wiosła
 const sro = bro * hro #0.3612	# sro=m2 – pole powierzchni tułowia, (pole czo?owe bryły I, pole prostok?ta)
 
 # But can be computed using r_reynolds
 const freh2o = 1.0
 const freair = 1.0
+
+const cdoa = 1.134175428596492 # wsp oporu wiosla
