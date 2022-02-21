@@ -2,7 +2,7 @@
 function Q(u, w, θ, bh2o)
     x1va = 0.0
     x1air = 0.0
-    Q_g(θ) + Q_BUOY(θ, bh2o) + Q_VA(u, w, θ, bh2o, x1va) + Q_AE(u, w, θ, bh2o, x1air) #+ Q_T() + Q_ROAE(θ, u, w, x1air)
+    Q_g(θ) + Q_BUOY(θ, bh2o) + Q_VA(u, w, θ, bh2o, x1va) + Q_AE(u, w, θ, bh2o, x1air) #+ Q_ROAE(θ, u, w, x1air)#+ Q_T() 
 end
 
 function Q_g(θ)
@@ -73,17 +73,17 @@ function Q_T()
     SA[X_T, Z_T, 0]
 end
 
-function Q_ROAE(u, w, θ, x1air)
+function Q_ROAE(u, w, θ, x1air, θ_t=θ_t, θ′_t=θ′_t)
     # x1w = 0
     # or 
-    x1w = -θ′_t * (l_s * F_1(θ_t) + l_t) * sin(θ_t)
+    x1w = x′_w(θ_t, θ′_t)
     x1 = u * cos(θ) + w * sin(θ) - x1air + x1w * cos(θ)
     sx1 = sign(x1)
 
-    coeff = 0.5rhoair * x1^2 * sx1
+    coeff = 0.5rhoair * x1^2 * sx1 * 1e3
     R_ROAE = coeff * sro * cdro
     X_ROAE = -R_ROAE * cos(θ)
-    Z_ROAE = R_ROAE * sin(θ)
-    M_ROAE = -coeff * szsro * cdro
+    Z_ROAE = -R_ROAE * sin(θ)
+    M_ROAE = coeff * szsro * cdro
     SA[X_ROAE, Z_ROAE, M_ROAE]
 end

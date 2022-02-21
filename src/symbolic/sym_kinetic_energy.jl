@@ -1,12 +1,21 @@
 using Symbolics
 
-function symbolic_kinetic_energy(u, w, θ′, t)
-    T = kinetic_energy(u, w, θ′) 
+function symbolic_kinetic_energy(
+    u,
+    w,
+    θ′,
+    t;
+    θ_t = θ_t,
+    θ_k = θ_k,
+    γ_OA = γ_OA,
+)
+
+    D = Differential(t)
+    T = kinetic_energy(u, w, θ′, θ_t, D(θ_t), θ_k, D(θ_k), γ_OA, D(γ_OA))
 
     Du = Differential(u)
     Dw = Differential(w)
     Dθ′ = Differential(θ′)
-    D = Differential(t)
 
     dT_du = Du(T)
     dT_dw = Dw(T)
