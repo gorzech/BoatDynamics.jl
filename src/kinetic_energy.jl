@@ -33,7 +33,7 @@ function kinetic_energy(
         )
 
     V_t_const =
-        V_B0 + r′_w(θ_t, θ′_t) + crossθ(θ′, r_w(θ_t)) + crossθ(θ′ + θ′_t, r_t_const(θ_t))
+        V_B0 + r′_w(θ_t, θ′_t) + crossθ(θ′, r_w(θ_t)) + crossθ(θ′, r_t_const(θ_t)) + crossθ(θ′_t, r_t_const(θ_t))
     V_t_∂l_t = crossθ(θ′ + θ′_t, r_t_∂l_t(θ_t))
     T_t =
         0.5m_t * (
@@ -43,7 +43,8 @@ function kinetic_energy(
         )
 
     V_k_const =
-        V_B0 + r′_w(θ_t, θ′_t) + crossθ(θ′, r_w(θ_t)) + crossθ(θ′ + θ′_k, r_k_const(θ_t))
+        V_B0 + r′_w(θ_t, θ′_t) + crossθ(θ′, r_w(θ_t)) + crossθ(θ′, r_k_const(θ_t)) + crossθ(θ′_k, r_k_const(θ_t))
+
     V_k_∂l_k = crossθ(θ′ + θ′_k, r_k_∂l_k(θ_k))
     T_k =
         0.5m_k * (

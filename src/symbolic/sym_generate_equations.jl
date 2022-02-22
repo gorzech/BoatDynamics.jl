@@ -19,7 +19,7 @@ function generate_equations_of_motion()
 
     @variables θ_t(t) θ_k(t) γ_OA(t)
 
-    LT = symbolic_kinetic_energy(u, w, θ′, t, #=θ_t = θ_t, θ_k = θ_k,=# γ_OA = γ_OA)
+    LT = symbolic_kinetic_energy(u, w, θ′, t, θ_t = θ_t, θ_k = θ_k, γ_OA = γ_OA)
 
     D = Differential(t)
     # Need to generate A and b for Ax = b where x is D(u), D(w), D(θ′)
@@ -32,10 +32,10 @@ function generate_equations_of_motion()
     println(Symbolics.get_variables.(b))
 
     generated_dir = joinpath(@__DIR__, "..", "generated")
-    funA, _ = build_function(A, (γ_OA,))
+    funA, _ = build_function(A, (θ_t, θ_k, γ_OA))
     write(joinpath(generated_dir, "inertia_lhs.jl"), string(funA))
 
-    funb, _ = build_function(b, (u, w, θ′, #=t, θ_t, D(θ_t), D(D(θ_t)), θ_k, D(θ_k), D(D(θ_k)),=# γ_OA, D(γ_OA), D(D(γ_OA))))
+    funb, _ = build_function(b, (u, w, θ′, #=t,=# θ_t, D(θ_t), D(D(θ_t)), θ_k, D(θ_k), D(D(θ_k)), γ_OA, D(γ_OA), D(D(γ_OA))))
     write(joinpath(generated_dir, "inertia_rhs.jl"), string(funb))
     (funA, funb)
 end
