@@ -31,9 +31,9 @@ bh2o0(the) = bisectionMethodError(find_bh2o(the), zmax - hb, zmax, 1e-12) # (zma
 
 function get_bh2o(z, θ, p)
     bh2o = p.bh2o_0 - z / cos(θ)
-    if bh2o < zmax - hb || bh2o > zmax
-        @warn "bh2o value in boatode! out of range" bh2o
-    end
+    # if bh2o < zmax - hb || bh2o > zmax
+    #     @warn "bh2o value in boatode! out of range" bh2o
+    # end
     return bh2o
 end
 
@@ -42,16 +42,17 @@ function boatode!(dy, y, p, t)
     # as well as u, w, the1  - velocity level coordinates
     _, z, θ, u, w, θ′ = y
 
-    bsp = Boat_sim_pars(get_bh2o(z, θ, p), γ_OA(t), γ′_OA(t), γ′′_OA(t))
+    γoa, γ′oa, γ′′oa = γ_OA(t), γ′_OA(t), γ′′_OA(t)
+    θt, θ′t, θ′′t = θ_t(t), θ′_t(t), θ′′_t(t)
+    θk, θ′k, θ′′k = θ_k(t), θ′_k(t), θ′′_k(t)
+    bsp = Boat_sim_pars(get_bh2o(z, θ, p), γoa, γ′oa, θk, θ′k, θt, θ′t)
     # println(bsp)
     sθ, cθ = sincos(θ)
     R = SA[cθ sθ; -sθ cθ]
     U = SA[u, w]
 
-    M = system_lhs(SA[θ_t, θ_k, bsp.γ_OA])
-    b = system_rhs(
-        SA[u, w, θ′, θ_t, θ′_t, θ′′_t, θ_k, θ′_k, θ′′_k, bsp.γ_OA, bsp.γ′_OA, bsp.γ′′_OA],
-    )
+    M = system_lhs(SA[θt, θk, γoa])
+    b = system_rhs(SA[u, w, θ′, θt, θ′t, θ′′t, θk, θ′k, θ′′k, γoa, γ′oa, γ′′oa])
     F = Q(θ, u, w, bsp, t)
 
     dy[1:2] = R * U

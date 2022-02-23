@@ -22,13 +22,16 @@ const y_OAB = 0.83# yoab=m – położenie dulki od płaszczyzny xz, (Odległoś
 
 # θ_t - kąt pomiędzy udem a osią x
 # Jest funkcją czasu ale dla testów załóżmy, że jest stały
-const θ_t = deg2rad(22.5) # normalnie w przedziale 0-45
-const θ′_t = 0.0
-const θ′′_t = 0.0
-# θ_k kąty pomiędzy tułowiem a osią x
-const θ_k = deg2rad(90.0) # 120 to 60
-const θ′_k = 0.0
-const θ′′_k = 0.0
+# const θ_t_min = deg2rad(0.0) # normalnie w przedziale 0-45
+# const θ_t_max = deg2rad(45.0)
+const θ_t_min = deg2rad(22.5) 
+const θ_t_max = deg2rad(22.5)
+
+# θ_k kąty pomiędzy tułowiem a osią x # 120 to 60
+# const θ_k_min = deg2rad(60.0)
+# const θ_k_max = deg2rad(120.0)
+const θ_k_min = deg2rad(90.0)
+const θ_k_max = deg2rad(90.0)
 
 # kąty obrotu wiosla
 const γ_OA_min = deg2rad(30.0) # normalnie 30 do 120
@@ -85,3 +88,12 @@ const freh2o = 1.0
 const freair = 1.0
 
 const cdoa = 1.134175428596492 # wsp oporu wiosla
+
+## Time parameters
+# time parameters like in basic model
+const T_in = 0.0
+const T_out = 0.0
+# one phase model
+const T_1 = 2 * (0.7 + T_in + T_out)
+const T_2 = 2 * 0.5
+const T_t = 0.5 * (T_1 + T_2)

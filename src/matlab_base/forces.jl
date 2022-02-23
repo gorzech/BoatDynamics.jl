@@ -2,21 +2,24 @@ struct Boat_sim_pars
     bh2o::Float64
     γ_OA::Float64
     γ′_OA::Float64
-    γ′′_OA::Float64
+    θ_k::Float64
+    θ′_k::Float64
+    θ_t::Float64
+    θ′_t::Float64
 end
 
 function Q(θ, u, w, bsp::Boat_sim_pars, t)
     x1va = 0.0
     x1air = 0.0
-    Q_g(θ, bsp.γ_OA) +
+    Q_g(θ, bsp.γ_OA, bsp.θ_k, bsp.θ_t) +
     Q_BUOY(θ, bsp.bh2o) +
     Q_VA(θ, u, w, bsp.bh2o, x1va) +
     Q_AE(θ, u, w, bsp.bh2o, x1air) +
-    Q_ROAE(θ, u, w, x1air) +
+    Q_ROAE(θ, u, w, x1air, bsp.θ_t, bsp.θ′_t) +
     Q_T(θ, u, w, x1va, bsp.γ_OA, bsp.γ′_OA, t)
 end
 
-function Q_g(θ, γ_OA)
+function Q_g(θ, γ_OA, θ_k, θ_t)
     sθ, cθ = sincos(θ)
     Xg = -m * g * sθ
     Zg = m * g * cθ
@@ -83,7 +86,7 @@ function Q_T(θ, u, w, x1va, γ_OA, γ′_OA, t)
     SA[X_T, Z_T, 0]
 end
 
-function Q_ROAE(θ, u, w, x1air, θ_t = θ_t, θ′_t = θ′_t)
+function Q_ROAE(θ, u, w, x1air, θ_t, θ′_t)
     # x1w = 0
     # or 
     x1w = x′_w(θ_t, θ′_t)
