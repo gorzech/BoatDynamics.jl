@@ -1,99 +1,74 @@
-t_periodic(t) = mod(t, T_t)
+struct Boat_timing
+    T_in::Float64
+    T_out::Float64
+    T_1::Float64
+    T_2::Float64
+    T_t::Float64
+end
 
-function η(t)
+# T_1 = 2 * (0.7 + T_in + T_out)
+Boat_timing(T_active, T_passive) =
+    Boat_timing(0, 0, 2T_active, 2T_passive, T_active + T_passive)
+
+Boat_timing() = Boat_timing(0.7, 0.5)
+
+t_periodic(t, bt::Boat_timing) = mod(t, bt.T_t)
+
+function η(t, bt::Boat_timing)
     # to - czas w danym okresie
-    to = t_periodic(t)
+    to = t_periodic(t, bt)
 
-    if to < T_in
-        to / T_in
-    elseif to < 0.5T_1 - T_out
+    if to < bt.T_in
+        to / bt.T_in
+    elseif to < 0.5bt.T_1 - bt.T_out
         one(t)
-    elseif to < 0.5T_1
-        1 - (to - 0.5T_1 + T_out) / T_out
+    elseif to < 0.5bt.T_1
+        1 - (to - 0.5bt.T_1 + bt.T_out) / bt.T_out
     else
         zero(t)
     end
 end
 
-function kpars(to)
+function kpars(to, bt::Boat_timing)
     #KPARS Helper to get phase parameters.
-    k1 = to <= 0.5T_1
+    k1 = to <= 0.5bt.T_1
     (k1, !k1) .* 1
 end
 
-function γ_OA(t)
-    to = t_periodic(t)
-    k1, k2 = kpars(to)
-    0.5(γ_OA_max + γ_OA_min) -
-    0.5(γ_OA_max - γ_OA_min) * (k1 * cospi(2to / T_1) - k2 * cospi(2(to - 0.5T_1) / T_2))
+function _angle(t, bt::Boat_timing, vmin, vmax)
+    to = t_periodic(t, bt)
+    k1, k2 = kpars(to, bt)
+    T_1, T_2 = bt.T_1, bt.T_2
+    0.5(vmax + vmin) -
+    0.5(vmax - vmin) * (k1 * cospi(2to / T_1) - k2 * cospi(2(to - 0.5T_1) / T_2))
 end
 
-function γ′_OA(t)
-    to = t_periodic(t)
-    k1, k2 = kpars(to)
+function _angle′(t, bt::Boat_timing, vmin, vmax)
+    to = t_periodic(t, bt)
+    k1, k2 = kpars(to, bt)
+    T_1, T_2 = bt.T_1, bt.T_2
     -π *
     ((k2 * sinpi(2(T_1 / 2 - to) / T_2)) / T_2 + (k1 * sinpi(2to / T_1)) / T_1) *
-    (γ_OA_min - γ_OA_max)
+    (vmin - vmax)
 end
 
-function γ′′_OA(t)
-    to = t_periodic(t)
-    k1, k2 = kpars(to)
+function _angle′′(t, bt::Boat_timing, vmin, vmax)
+    to = t_periodic(t, bt)
+    k1, k2 = kpars(to, bt)
+    T_1, T_2 = bt.T_1, bt.T_2
     2π^2 *
     (k2 * cospi(2(T_1 / 2 - to) / T_2) / T_2^2 - k1 * cospi(2to / T_1) / T_1^2) *
-    (γ_OA_min - γ_OA_max)
+    (vmin - vmax)
 end
 
-function θ_k(t)
-    to = t_periodic(t)
-    k1, k2 = kpars(to)
+γ_OA(t, bt) = _angle(t, bt, γ_OA_min, γ_OA_max)
+γ′_OA(t, bt) = _angle′(t, bt, γ_OA_min, γ_OA_max)
+γ′′_OA(t, bt) = _angle′′(t, bt, γ_OA_min, γ_OA_max)
 
-    0.5(θ_k_max + θ_k_min) +
-    0.5(θ_k_max - θ_k_min) * (k1 * cospi(2to / T_1) - k2 * cospi(2(to - 0.5T_1) / T_2))
-end
+θ_k(t, bt) = _angle(t, bt, θ_k_min, θ_k_max)
+θ′_k(t, bt) = _angle′(t, bt, θ_k_min, θ_k_max)
+θ′′_k(t, bt) = _angle′′(t, bt, θ_k_min, θ_k_max)
 
-function θ′_k(t)
-    to = t_periodic(t)
-    k1, k2 = kpars(to)
-
-    π *
-    (k2 * sinpi(2(T_1 / 2 - to) / T_2) / T_2 + k1 * sinpi(2to / T_1) / T_1) *
-    (θ_k_min - θ_k_max)
-end
-
-function θ′′_k(t)
-    to = t_periodic(t)
-    k1, k2 = kpars(to)
-
-    -2 *
-    pi^2 *
-    (k2 * cospi(2(T_1 / 2 - to) / T_2) / T_2^2 - k1 * cospi(2to / T_1) / T_1^2) *
-    (θ_k_min - θ_k_max)
-end
-
-function θ_t(t)
-    to = t_periodic(t)
-    k1, k2 = kpars(to)
-
-    0.5(θ_t_max + θ_t_min) +
-    0.5(θ_t_max - θ_t_min) * (k1 * cospi(2to / T_1) - k2 * cospi(2(to - 0.5T_1) / T_2))
-end
-
-function θ′_t(t)
-    to = t_periodic(t)
-    k1, k2 = kpars(to)
-
-    π *
-    (k2 * sinpi(2(T_1 / 2 - to) / T_2) / T_2 + k1 * sinpi(2to / T_1) / T_1) *
-    (θ_t_min - θ_t_max)
-end
-
-function θ′′_t(t)
-    to = t_periodic(t)
-    k1, k2 = kpars(to)
-
-    -2 *
-    pi^2 *
-    (k2 * cospi(2(T_1 / 2 - to) / T_2) / T_2^2 - k1 * cospi(2to / T_1) / T_1^2) *
-    (θ_t_min - θ_t_max)
-end
+θ_t(t, bt) = _angle(t, bt, θ_t_min, θ_t_max)
+θ′_t(t, bt) = _angle′(t, bt, θ_t_min, θ_t_max)
+θ′′_t(t, bt) = _angle′′(t, bt, θ_t_min, θ_t_max)

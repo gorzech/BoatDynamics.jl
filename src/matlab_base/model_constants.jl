@@ -88,12 +88,3 @@ const freh2o = 1.0
 const freair = 1.0
 
 const cdoa = 1.134175428596492 # wsp oporu wiosla
-
-## Time parameters
-# time parameters like in basic model
-const T_in = 0.0
-const T_out = 0.0
-# one phase model
-const T_1 = 2 * (0.7 + T_in + T_out)
-const T_2 = 2 * 0.5
-const T_t = 0.5 * (T_1 + T_2)

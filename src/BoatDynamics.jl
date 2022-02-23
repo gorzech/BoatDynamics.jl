@@ -8,6 +8,7 @@ include("matlab_base/model_constants.jl")
 include("matlab_base/funshapeex.jl")
 include("matlab_base/kinematics.jl")
 include("matlab_base/kinematic_excitation.jl")
+export Boat_timing
 
 include("kinetic_energy.jl")
 export kinetic_energy
