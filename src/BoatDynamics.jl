@@ -12,6 +12,8 @@ include("matlab_base/kinematic_excitation.jl")
 include("kinetic_energy.jl")
 export kinetic_energy
 
+include("helper.jl")
+
 include("matlab_base/oar_force.jl")
 include("matlab_base/forces.jl")
 
