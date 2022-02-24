@@ -60,15 +60,3 @@ function _angle′′(t, bt::Boat_timing, vmin, vmax)
     (k2 * cospi(2(T_1 / 2 - to) / T_2) / T_2^2 - k1 * cospi(2to / T_1) / T_1^2) *
     (vmin - vmax)
 end
-
-γ_OA(t, bt) = _angle(t, bt, γ_OA_min, γ_OA_max)
-γ′_OA(t, bt) = _angle′(t, bt, γ_OA_min, γ_OA_max)
-γ′′_OA(t, bt) = _angle′′(t, bt, γ_OA_min, γ_OA_max)
-
-θ_k(t, bt) = _angle(t, bt, θ_k_min, θ_k_max)
-θ′_k(t, bt) = _angle′(t, bt, θ_k_min, θ_k_max)
-θ′′_k(t, bt) = _angle′′(t, bt, θ_k_min, θ_k_max)
-
-θ_t(t, bt) = _angle(t, bt, θ_t_min, θ_t_max)
-θ′_t(t, bt) = _angle′(t, bt, θ_t_min, θ_t_max)
-θ′′_t(t, bt) = _angle′′(t, bt, θ_t_min, θ_t_max)

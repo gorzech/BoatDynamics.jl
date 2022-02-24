@@ -30,6 +30,6 @@ system_rhs = include("generated/inertia_rhs.jl")
 export system_lhs, system_rhs
 
 include("solver/boat_odefun.jl")
-export solve_boat
+export solve_boat, Boat_settings, Boat_timing, find_the0
 
 end

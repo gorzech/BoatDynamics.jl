@@ -20,23 +20,6 @@ const l_OAMN = -0.89# loamn=-m – współrzędna min wiosła
 const x_OABME = 5.18# xoab=m – położenie dulki od płaszczyzny yz (Odległość dulki od rufy) 
 const y_OAB = 0.83# yoab=m – położenie dulki od płaszczyzny xz, (Odległość od płaszczyzny symetrii
 
-# θ_t - kąt pomiędzy udem a osią x
-# Jest funkcją czasu ale dla testów załóżmy, że jest stały
-# const θ_t_min = deg2rad(0.0) # normalnie w przedziale 0-45
-# const θ_t_max = deg2rad(45.0)
-const θ_t_min = deg2rad(22.5) 
-const θ_t_max = deg2rad(22.5)
-
-# θ_k kąty pomiędzy tułowiem a osią x # 120 to 60
-# const θ_k_min = deg2rad(60.0)
-# const θ_k_max = deg2rad(120.0)
-const θ_k_min = deg2rad(90.0)
-const θ_k_max = deg2rad(90.0)
-
-# kąty obrotu wiosla
-const γ_OA_min = deg2rad(30.0) # normalnie 30 do 120
-const γ_OA_max = deg2rad(120.0) # normalnie 30 do 120
-
 ## Many others
 const g = 9.80665	# g=9.80665 m/s2 - przyspieszenie ziemskie,
 const rhoh2o = 1000	# rhoh2o=1000 kg/m3 – gęstość wody
