@@ -6,9 +6,12 @@ struct Boat_settings
     θ_t::Tuple{Float64,Float64}
     θ_k::Tuple{Float64,Float64}
     timing::Boat_timing
+    x1va::Float64
+    x1air::Float64
 end
 
-Boat_settings() = Boat_settings((30.0, 120.0), (22.5, 22.5), (90.0, 90.0), Boat_timing())
+Boat_settings() =
+    Boat_settings((30.0, 120.0), (22.5, 22.5), (90.0, 90.0), Boat_timing(), 0.0, 0.0)
 
 function boatode!(dy, y, p, t)
     # y contains int(u,t), int(w, t), the - position level coordinates
@@ -26,7 +29,18 @@ function boatode!(dy, y, p, t)
         _angle′′(t, bt, r[1], r[2])
     end
 
-    bsp = Boat_sim_pars(get_bh2o(z, θ, p), γoa, γ′oa, θk, θ′k, θt, θ′t, η(t, bt))
+    bsp = Boat_sim_pars(
+        get_bh2o(z, θ, p),
+        γoa,
+        γ′oa,
+        θk,
+        θ′k,
+        θt,
+        θ′t,
+        η(t, bt),
+        p.x1va,
+        p.x1air,
+    )
     # println(bsp)
     sθ, cθ = sincos(θ)
     R = SA[cθ sθ; -sθ cθ]
@@ -34,7 +48,7 @@ function boatode!(dy, y, p, t)
 
     M = system_lhs(SA[θt, θk, γoa])
     b = system_rhs(SA[u, w, θ′, θt, θ′t, θ′′t, θk, θ′k, θ′′k, γoa, γ′oa, γ′′oa])
-    F = Q(θ, u, w, bsp, t)
+    F = Q(θ, u, w, bsp)
 
     dy[1:2] = R * U
     dy[3] = θ′
@@ -76,7 +90,7 @@ function solve_boat(
     ranges = map((settings.γ_OA, settings.θ_t, settings.θ_k)) do r
         deg2rad.(r)
     end
-    p = (bh2o_0 = bh2o_0, timing = timing, ranges = ranges)
+    p = (bh2o_0 = bh2o_0, timing = timing, ranges = ranges, x1va = settings.x1va, x1air = settings.x1air)
 
     tspan = (0.0, t_end)
     prob = ODEProblem(boatode!, y0, tspan, p)

@@ -7,11 +7,12 @@ struct Boat_sim_pars
     θ_t::Float64
     θ′_t::Float64
     η::Float64
+    x1va::Float64
+    x1air::Float64
 end
 
-function Q(θ, u, w, bsp::Boat_sim_pars, t)
-    x1va = 0.0
-    x1air = 0.0
+function Q(θ, u, w, bsp::Boat_sim_pars)
+    x1va, x1air = bsp.x1va, bsp.x1air
     x′ = u * cos(θ) + w * sin(θ)
     Q_g(θ, bsp.γ_OA, bsp.θ_k, bsp.θ_t) +
     Q_BUOY(θ, bsp.bh2o) +
