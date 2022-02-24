@@ -6,17 +6,20 @@ struct Boat_sim_pars
     θ′_k::Float64
     θ_t::Float64
     θ′_t::Float64
+    η::Float64
+    x1va::Float64
+    x1air::Float64
 end
 
-function Q(θ, u, w, bsp::Boat_sim_pars, t)
-    x1va = 0.0
-    x1air = 0.0
+function Q(θ, u, w, bsp::Boat_sim_pars)
+    x1va, x1air = bsp.x1va, bsp.x1air
+    x′ = u * cos(θ) + w * sin(θ)
     Q_g(θ, bsp.γ_OA, bsp.θ_k, bsp.θ_t) +
     Q_BUOY(θ, bsp.bh2o) +
-    Q_VA(θ, u, w, bsp.bh2o, x1va) +
-    Q_AE(θ, u, w, bsp.bh2o, x1air) +
-    Q_ROAE(θ, u, w, x1air, bsp.θ_t, bsp.θ′_t) +
-    Q_T(θ, u, w, x1va, bsp.γ_OA, bsp.γ′_OA, t)
+    Q_VA(θ, x′, bsp.bh2o, x1va) +
+    Q_AE(θ, x′, bsp.bh2o, x1air) +
+    Q_ROAE(θ, x′, x1air, bsp.θ_t, bsp.θ′_t) +
+    Q_T(θ, x′, x1va, bsp.γ_OA, bsp.γ′_OA, bsp.η)
 end
 
 function Q_g(θ, γ_OA, θ_k, θ_t)
@@ -48,8 +51,8 @@ function Q_BUOY(θ, bh2o)
     SA[X, Z, M_BUOY]
 end
 
-function Q_VA(θ, u, w, bh2o, x1va)
-    x1 = u * cos(θ) + w * sin(θ) - x1va
+function Q_VA(θ, x1b, bh2o, x1va)
+    x1 = x1b - x1va
     sx1 = sign(x1)
     coeff = 0.5rhoh2o * x1^2 * sx1
 
@@ -66,8 +69,8 @@ function Q_VA(θ, u, w, bh2o, x1va)
     SA[X_VA, Z_VA, M_VA]
 end
 
-function Q_AE(θ, u, w, bh2o, x1air)
-    x1 = u * cos(θ) + w * sin(θ) - x1air
+function Q_AE(θ, x1b, bh2o, x1air)
+    x1 = x1b - x1air
     sx1 = sign(x1)
 
     coeff = 0.5rhoair * x1^2 * sx1
@@ -78,19 +81,19 @@ function Q_AE(θ, u, w, bh2o, x1air)
     SA[X_AE, Z_AE, M_AE]
 end
 
-function Q_T(θ, u, w, x1va, γ_OA, γ′_OA, t)
-    F_OAR = foa(γ_OA, γ′_OA, θ, u, w, x1va, t)
+function Q_T(θ, x1b, x1va, γ_OA, γ′_OA, η)
+    F_OAR = foa(γ_OA, γ′_OA, x1b, x1va, η)
     T_OAR = 2F_OAR * sin(γ_OA)
     X_T = T_OAR * cos(θ)
     Z_T = T_OAR * sin(θ)
     SA[X_T, Z_T, 0]
 end
 
-function Q_ROAE(θ, u, w, x1air, θ_t, θ′_t)
+function Q_ROAE(θ, x1b, x1air, θ_t, θ′_t)
     # x1w = 0
     # or 
     x1w = x′_w(θ_t, θ′_t)
-    x1 = u * cos(θ) + w * sin(θ) - x1air + x1w * cos(θ)
+    x1 = x1b - x1air + x1w * cos(θ)
     sx1 = sign(x1)
 
     coeff = 0.5rhoair * x1^2 * sx1

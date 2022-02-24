@@ -8,6 +8,7 @@ include("matlab_base/model_constants.jl")
 include("matlab_base/funshapeex.jl")
 include("matlab_base/kinematics.jl")
 include("matlab_base/kinematic_excitation.jl")
+export Boat_timing
 
 include("kinetic_energy.jl")
 export kinetic_energy
@@ -29,6 +30,6 @@ system_rhs = include("generated/inertia_rhs.jl")
 export system_lhs, system_rhs
 
 include("solver/boat_odefun.jl")
-export solve_boat
+export solve_boat, Boat_settings, Boat_timing, find_the0
 
 end

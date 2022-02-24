@@ -1,3 +1,29 @@
+function bisectionMethod(f, a, b, tol; maxiter = 1000) #f=@(x)x^2-3; a=1; b=2; (ensure change of sign between a and b) error=1e-4
+    if sign(f(a)) == sign(f(b))
+        throw(DomainError("Function has the same sign on both ends in bisectionMethod."))
+    end
+    c = (a + b) / 2
+
+    _fc = f(c)
+    _fa = f(a)
+    iter = 1
+    while abs(_fc) > tol
+        if _fc < 0 && _fa < 0 || _fc > 0 && _fa > 0
+            a = c
+            _fa = _fc
+        else
+            b = c
+        end
+        c = (a + b) / 2
+        _fc = f(c)
+        iter += 1
+        iter < maxiter || throw(
+            DomainError("Maximum number of iterations reached in bisectionMethod $iter."),
+        )
+    end
+    return c
+end
+
 function bisectionMethodError(f, a, b, tol; maxiter = 1000) #f=@(x)x^2-3; a=1; b=2; (ensure change of sign between a and b) error=1e-4
     c = (a + b) / 2
     ftry(x) =
@@ -7,22 +33,7 @@ function bisectionMethodError(f, a, b, tol; maxiter = 1000) #f=@(x)x^2-3; a=1; b
             1.0
         end
 
-    iter = 1
-    while abs(ftry(c)) > tol
-        if ftry(c) < 0 && ftry(a) < 0
-            a = c
-        else
-            b = c
-        end
-        c = (a + b) / 2
-        iter += 1
-        iter < maxiter || throw(
-            DomainError(
-                "Maximum number of iterations reached in bisectionMethodError $iter.",
-            ),
-        )
-    end
-    return c
+    bisectionMethod(ftry, a, b, tol; maxiter = maxiter)
 end
 
 const vh2o_0 = m / rhoh2o
