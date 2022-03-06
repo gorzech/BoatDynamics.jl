@@ -47,7 +47,7 @@ function Q_BUOY(θ, bh2o)
     F_BUOY = -rhoh2o * g * vh2o(θ, bh2o)
     X = F_BUOY * sin(θ)
     Z = F_BUOY * cos(θ)
-    M_BUOY = -rhoh2o * g * (-szvh2o(θ, bh2o) * sin(θ) + sxvh2o(θ, bh2o) * cos(θ))
+    M_BUOY = -rhoh2o * g * (szvh2o(θ, bh2o) * sin(θ) + sxvh2o(θ, bh2o) * cos(θ))
     SA[X, Z, M_BUOY]
 end
 

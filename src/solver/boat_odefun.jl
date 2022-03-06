@@ -43,7 +43,7 @@ function boatode!(dy, y, p, t)
     )
     # println(bsp)
     sθ, cθ = sincos(θ)
-    R = SA[cθ sθ; -sθ cθ]
+    R = SA[cθ -sθ; sθ cθ]
     U = SA[u, w]
 
     M = system_lhs(SA[θt, θk, γoa])
