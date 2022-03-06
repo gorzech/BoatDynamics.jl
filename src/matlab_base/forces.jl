@@ -24,19 +24,19 @@ end
 
 function Q_g(θ, γ_OA, θ_k, θ_t)
     sθ, cθ = sincos(θ)
-    Xg = -m * g * sθ
+    Xg = m * g * sθ
     Zg = m * g * cθ
-    Mg_RG = -m_RG * g * r_RG[1] * cθ
-    Mg_w = -m_w * g * x_w(θ_t) * cθ
-    Mg_fs = -m_fs * g * x_SB * cθ
-    Mg_f = -m_f * g * x_SB * cθ
-    Mg_k = -m_k * g * dot(r_w(θ_t) + r_k_const(θ_t) + 0.5l_k * r_k_∂l_k(θ_k), SA[cθ, sθ])
+    Mg_RG = m_RG * g * r_RG[1] * cθ
+    Mg_w = m_w * g * x_w(θ_t) * cθ
+    Mg_fs = m_fs * g * x_SB * cθ
+    Mg_f = m_f * g * x_SB * cθ
+    Mg_k = m_k * g * dot(r_w(θ_t) + r_k_const(θ_t) + 0.5l_k * r_k_∂l_k(θ_k), SA[cθ, sθ])
     Mg_t =
-        -m_t * g * ((-0.5l_t * cos(θ_t) + 2x_w(θ_t)) * cos(θ) + 0.5l_t * sin(θ_t) * sin(θ))
+        m_t * g * ((-0.5l_t * cos(θ_t) + 2x_w(θ_t)) * cos(θ) + 0.5l_t * sin(θ_t) * sin(θ))
     Mg_s =
-        -m_s * g * ((0.5l_s * cos(F_0(θ_t)) + 2x_SB) * cos(θ) + 0.5l_t * sin(θ_t) * sin(θ))
+        m_s * g * ((0.5l_s * cos(F_0(θ_t)) + 2x_SB) * cos(θ) + 0.5l_t * sin(θ_t) * sin(θ))
     # Here is also a difference
-    Mg_OA = -m_OA * g * 0.5(l_OAMX + l_OAMN) * x_OA_∂l_OA(γ_OA) * cθ
+    Mg_OA = m_OA * g * 0.5(l_OAMX + l_OAMN) * x_OA_∂l_OA(γ_OA) * cθ
     # moa * g * (loamx + loamn) * cos(gamoa) * (cos(θ) + sin(θ))
     @debug "Mg parts are as follows: " Mg_RG Mg_w Mg_fs Mg_f Mg_k Mg_t Mg_s Mg_OA
     Mg = Mg_RG + Mg_w + Mg_fs + 2Mg_f + Mg_k + 2Mg_t + 2Mg_s + 2Mg_OA
@@ -45,9 +45,9 @@ end
 
 function Q_BUOY(θ, bh2o)
     F_BUOY = -rhoh2o * g * vh2o(θ, bh2o)
-    X = -F_BUOY * sin(θ)
+    X = F_BUOY * sin(θ)
     Z = F_BUOY * cos(θ)
-    M_BUOY = rhoh2o * g * (szvh2o(θ, bh2o) * sin(θ) + sxvh2o(θ, bh2o) * cos(θ))
+    M_BUOY = -rhoh2o * g * (szvh2o(θ, bh2o) * sin(θ) + sxvh2o(θ, bh2o) * cos(θ))
     SA[X, Z, M_BUOY]
 end
 

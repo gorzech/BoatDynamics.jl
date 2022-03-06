@@ -19,11 +19,11 @@ function symbolic_kinetic_energy(
 
     dT_du = Du(T)
     dT_dw = Dw(T)
-    dT_dθ′ = expand_derivatives(Dθ′(T))
+    dT_dθ′ = -simplify(expand_derivatives(Dθ′(T)))
 
     # LHS of the equations
-    L1 = D(dT_du) + dT_dw * θ′
-    L2 = D(dT_dw) - dT_du * θ′
+    L1 = D(dT_du) - dT_dw * θ′
+    L2 = D(dT_dw) + dT_du * θ′
     L3 = D(dT_dθ′) + dT_du * w - dT_dw * u
 
     [L1, L2, L3]
