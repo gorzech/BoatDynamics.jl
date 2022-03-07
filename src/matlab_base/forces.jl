@@ -9,11 +9,11 @@ struct Boat_sim_pars
 end
 
 function Q(θ, bsp::Boat_sim_pars)
-    x1va, x1air, x′, ba = bsp.x1va, bsp.x1air, bsp.x′, bsp.boat_angles
+    x1va, x1air, x′, ba, bh2o = bsp.x1va, bsp.x1air, bsp.x′, bsp.boat_angles, bsp.bh2o
     Q_g(θ, ba.γ_OA, ba.θ_k, ba.θ_t) +
-    Q_BUOY(θ, bsp.bh2o) +
-    Q_VA(θ, x′, bsp.bh2o, x1va) +
-    Q_AE(θ, x′, bsp.bh2o, x1air) +
+    Q_BUOY(θ, bh2o) +
+    Q_VA(θ, x′, bh2o, x1va) +
+    Q_AE(θ, x′, bh2o, x1air) +
     Q_ROAE(θ, x′, x1air, ba.θ_t, ba.θ′_t) +
     Q_T(θ, x′, x1va, ba.γ_OA, ba.γ′_OA, bsp.η)
 end
@@ -86,9 +86,9 @@ function Q_T(θ, x1b, x1va, γ_OA, γ′_OA, η)
 end
 
 function Q_ROAE(θ, x1b, x1air, θ_t, θ′_t)
-    # x1w = 0
+    x1w = 0
     # or 
-    x1w = x′_w(θ_t, θ′_t)
+    # x1w = x′_w(θ_t, θ′_t)
     x1 = x1b - x1air + x1w * cos(θ)
     sx1 = sign(x1)
 

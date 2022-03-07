@@ -2,6 +2,7 @@ module BoatDynamics
 using LinearAlgebra
 using DifferentialEquations
 using StaticArrays
+using Plots
 
 # Write your package code here.
 include("matlab_base/model_constants.jl")
@@ -36,5 +37,8 @@ export Boat_settings
 include("solver/boat_odefun.jl")
 include("solver/solve_boat.jl")
 export solve_boat, find_the0
+
+include("postprocess/animate.jl")
+export animate_boat
 
 end
