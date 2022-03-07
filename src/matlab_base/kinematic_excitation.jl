@@ -12,6 +12,46 @@ Boat_timing(T_active, T_passive) =
 
 Boat_timing() = Boat_timing(0.7, 0.5)
 
+struct Boat_angle_ranges
+    γ_OA::Tuple{Float64,Float64}
+    θ_t::Tuple{Float64,Float64}
+    θ_k::Tuple{Float64,Float64}
+end
+
+Boat_angle_ranges() = Boat_angle_ranges((30.0, 120.0), (22.5, 22.5), (90.0, 90.0))
+
+function Base.deg2rad(angles::Boat_angle_ranges)
+    Boat_angle_ranges(deg2rad.(angles.γ_OA), deg2rad.(angles.θ_t), deg2rad.(angles.θ_k))
+end
+
+struct Boat_angles
+    γ_OA::Float64
+    θ_t::Float64
+    θ_k::Float64
+    γ′_OA::Float64
+    θ′_t::Float64
+    θ′_k::Float64
+    γ′′_OA::Float64
+    θ′′_t::Float64
+    θ′′_k::Float64
+end
+
+function Boat_angles(angle_ranges::Boat_angle_ranges, bt::Boat_timing, t)
+    aranges = angle_ranges.γ_OA, angle_ranges.θ_t, angle_ranges.θ_k
+    γoa, θt, θk = map(aranges) do r
+        _angle(t, bt, r[1], r[2])
+    end
+    γ′oa, θ′t, θ′k = map(aranges) do r
+        _angle′(t, bt, r[1], r[2])
+    end
+    γ′′oa, θ′′t, θ′′k = map(aranges) do r
+        _angle′′(t, bt, r[1], r[2])
+    end
+    Boat_angles(γoa, θt, θk, γ′oa, θ′t, θ′k, γ′′oa, θ′′t, θ′′k)
+end
+
+Boat_angles() = Boat_angles(deg2rad(Boat_angle_ranges()), Boat_timing(), 0.0)
+
 t_periodic(t, bt::Boat_timing) = mod(t, bt.T_t)
 
 function η(t, bt::Boat_timing)

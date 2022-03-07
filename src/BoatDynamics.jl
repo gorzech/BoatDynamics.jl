@@ -25,11 +25,16 @@ export generate_equations_of_motion # For tests under development
 if !isfile(joinpath(@__DIR__, "generated", "inertia_lhs.jl"))
     generate_equations_of_motion()
 end
-system_lhs = include("generated/inertia_lhs.jl")
-system_rhs = include("generated/inertia_rhs.jl")
+inertia_lhs = include("generated/inertia_lhs.jl")
+inertia_rhs = include("generated/inertia_rhs.jl")
+
+include("solver/system_eqs.jl")
 export system_lhs, system_rhs
 
+include("solver/boat_settings.jl")
+export Boat_settings
 include("solver/boat_odefun.jl")
-export solve_boat, Boat_settings, Boat_timing, find_the0
+include("solver/solve_boat.jl")
+export solve_boat, find_the0
 
 end
