@@ -25,7 +25,7 @@ const g = 9.80665	# g=9.80665 m/s2 - przyspieszenie ziemskie,
 const rhoh2o = 1000	# rhoh2o=1000 kg/m3 – gęstość wody
 
 const xmax = 7.91    # xmax=m – współrzędna dziobu łodzi,
-const xmin = 0       # xmin=m – współrzędna rufy łodzi,
+const xmin = 0.0       # xmin=m – współrzędna rufy łodzi,
 # const lb = 7.91      # lb=xmax–xmin=m długość łodzi,
 const hb = 0.23      # hb=m – wysokość łodzi,
 const bb = 0.30      # bb=m – szerokość łodzi,
@@ -54,7 +54,7 @@ const bro = 0.43		# bro=m – szerokość tułowia,
 const hro = 0.84		# hro=m – wysokość tułowia,
 # Masses
 # const loa = 2.89		# loa=loamx-loamn=m – długość wiosła,
-# const nuh2o = 1.14e-6	# nuh2o=1.14×10-6 m2/s – współczynnik lepko?ci kinematycznej wody dla T=288°K 
+const nuh2o = 1.14e-6	# nuh2o=1.14×10-6 m2/s – współczynnik lepko?ci kinematycznej wody dla T=288°K 
 # const nuair = 1.445e-5	# nuair=1.445×10-5 m2/s – współczynnik lepko?ci kinematycznej powietrza dla T=288°K, 1013 hPa,
 const cf0 = 0.075	# cf0=0.075 – współczynnik odniesienia oporu lepko?ciowego wody dla reh2o=0,
 const cdw = 0.02		# cdw=0.02 – współczynnik hydrodynamicznego oporu falowego,

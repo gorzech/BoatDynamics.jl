@@ -1,14 +1,14 @@
-# fi2r(x,z)=0.5*bb*((-z^2+2*(zmax-hb)*z-zmax*(zmax-2*hb))*hb^(-2)+(-x^2+2*xmin0*x+xmin^2-2*xmin0*xmin)*(xmin0-xmin)^(-2)-1);
+fi2r(x,z)=0.5*bb*((-z^2+2*(zmax-hb)*z-zmax*(zmax-2*hb))*hb^(-2)+(-x^2+2*xmin0*x+xmin^2-2*xmin0*xmin)*(xmin0-xmin)^(-2)-1);
 # fi1r(x,z)=-0.5*bb*((-z^2+2*(zmax-hb)*z-zmax*(zmax-2*hb))*hb^(-2)+(-x^2+2*xmin0*x+xmin^2-2*xmin0*xmin)*(xmin0-xmin)^(-2)-1);
 
-# fi2m(x,z)=0.5*bb*((-z^2+2*(zmax-hb)*z-zmax*(zmax-2*hb))*hb^(-2));
+fi2m(x,z)=0.5*bb*((-z^2+2*(zmax-hb)*z-zmax*(zmax-2*hb))*hb^(-2))
 # fi1m(x,z)=-0.5*bb*((-z^2+2*(zmax-hb)*z-zmax*(zmax-2*hb))*hb^(-2));
 
-# fi2f(x,z)=0.5*bb*((-z^2+2*(zmax-hb)*z-zmax*(zmax-2*hb))*hb^(-2)+(-x^2+2*xmax0*x+xmax^2-2*xmax0*xmax)*(xmax-xmax0)^(-2)-1);
+fi2f(x,z)=0.5*bb*((-z^2+2*(zmax-hb)*z-zmax*(zmax-2*hb))*hb^(-2)+(-x^2+2*xmax0*x+xmax^2-2*xmax0*xmax)*(xmax-xmax0)^(-2)-1);
 # fi1f(x,z)=-0.5*bb*((-z^2+2*(zmax-hb)*z-zmax*(zmax-2*hb))*hb^(-2)+(-x^2+2*xmax0*x+xmax^2-2*xmax0*xmax)*(xmax-xmax0)^(-2)-1);
 
-# psi1(x)=zmax-hb+hb*((-x^2+2*xmin0*x+xmin^2-2*xmin0*xmin)*(xmin0-xmin)^(-2))^0.5;
-# psi2(x)=zmax-hb+hb*((-x^2+2*xmax0*x+xmax^2-2*xmax0*xmax)*(xmax-xmax0)^(-2))^0.5;
+psi1(x)=zmax-hb+hb*((-x^2+2*xmin0*x+xmin^2-2*xmin0*xmin)*(xmin0-xmin)^(-2))^0.5;
+psi2(x)=zmax-hb+hb*((-x^2+2*xmax0*x+xmax^2-2*xmax0*xmax)*(xmax-xmax0)^(-2))^0.5
 
 # nbf(x,z)=(1+0.25*bb^2*(((-2*z+2*(zmax-hb))*hb^(-2))^2+((-2*x+2*xmax0)*(xmax-xmax0)^(-2))^2))^0.5;
 # nbm(z)=(1+0.25*bb^2*((-2*z+2*(zmax-hb))*hb^(-2))^2)^0.5;
@@ -550,7 +550,7 @@ z1tvmh2o(the, bh2o) = (bb * (zmax - bh2o + xo * tan(the))^2 * (8 * bh2o * hb - 2
 sztvmh2o(the, bh2o) = z1tvmh2o(the, bh2o) - zo * tvmh2o(the)
 
 
-# lbh2o(the,bh2o)=((((bh2o+hb-zmax)*tan(the)+hb^2*xmax0*(xmax-xmax0)^(-2)+2*((hb^4+2*hb^2*xmax0*(bh2o+hb-zmax)*tan(the)-(bh2o+hb-zmax)^2*hb^2+(bh2o+hb-zmax)*hb^2*(tan(the))^2)*(xmax-xmax0)^(-2))^0.5)*(2*((tan(the))^2+hb^2*(xmax-xmax0)^(-2))^(-1))-((bh2o+hb-zmax)*tan(the)+hb^2*xmin0*(xmin0-xmin)^(-2)-2*((hb^4+2*hb^2*xmin0*(bh2o+hb-zmax)*tan(the)-(bh2o+hb-zmax)^2*hb^2+(bh2o+hb-zmax)*hb^2*(tan(the))^2)*(xmin0-xmin)^(-2))^0.5)*(2*((tan(the))^2+hb^2*(xmin0-xmin)^(-2))^(-1)))^2+(psi2(((bh2o+hb-zmax)*tan(the)+hb^2*xmax0*(xmax-xmax0)^(-2)+2*((hb^4+2*hb^2*xmax0*(bh2o+hb-zmax)*tan(the)-(bh2o+hb-zmax)^2*hb^2+(bh2o+hb-zmax)*hb^2*(tan(the))^2)*(xmax-xmax0)^(-2))^0.5)*(2*((tan(the))^2+hb^2*(xmax-xmax0)^(-2))^(-1)))-psi1(((bh2o+hb-zmax)*tan(the)+hb^2*xmin0*(xmin0-xmin)^(-2)-2*((hb^4+2*hb^2*xmin0*(bh2o+hb-zmax)*tan(the)-(bh2o+hb-zmax)^2*hb^2+(bh2o+hb-zmax)*hb^2*(tan(the))^2)*(xmin0-xmin)^(-2))^0.5)*(2*((tan(the))^2+hb^2*(xmin0-xmin)^(-2))^(-1))))^2)^0.5;
+lbh2o(the,bh2o)=((((bh2o+hb-zmax)*tan(the)+hb^2*xmax0*(xmax-xmax0)^(-2)+2*((hb^4+2*hb^2*xmax0*(bh2o+hb-zmax)*tan(the)-(bh2o+hb-zmax)^2*hb^2+(bh2o+hb-zmax)*hb^2*(tan(the))^2)*(xmax-xmax0)^(-2))^0.5)*(2*((tan(the))^2+hb^2*(xmax-xmax0)^(-2))^(-1))-((bh2o+hb-zmax)*tan(the)+hb^2*xmin0*(xmin0-xmin)^(-2)-2*((hb^4+2*hb^2*xmin0*(bh2o+hb-zmax)*tan(the)-(bh2o+hb-zmax)^2*hb^2+(bh2o+hb-zmax)*hb^2*(tan(the))^2)*(xmin0-xmin)^(-2))^0.5)*(2*((tan(the))^2+hb^2*(xmin0-xmin)^(-2))^(-1)))^2+(psi2(((bh2o+hb-zmax)*tan(the)+hb^2*xmax0*(xmax-xmax0)^(-2)+2*((hb^4+2*hb^2*xmax0*(bh2o+hb-zmax)*tan(the)-(bh2o+hb-zmax)^2*hb^2+(bh2o+hb-zmax)*hb^2*(tan(the))^2)*(xmax-xmax0)^(-2))^0.5)*(2*((tan(the))^2+hb^2*(xmax-xmax0)^(-2))^(-1)))-psi1(((bh2o+hb-zmax)*tan(the)+hb^2*xmin0*(xmin0-xmin)^(-2)-2*((hb^4+2*hb^2*xmin0*(bh2o+hb-zmax)*tan(the)-(bh2o+hb-zmax)^2*hb^2+(bh2o+hb-zmax)*hb^2*(tan(the))^2)*(xmin0-xmin)^(-2))^0.5)*(2*((tan(the))^2+hb^2*(xmin0-xmin)^(-2))^(-1))))^2)^0.5;
 sbair(the, bh2o) = sbof - svbh2o(the, bh2o);
 sxsbair(the, bh2o) = sxmb - m_B * xo - sxsvbh2o(the, bh2o)
 szsbair(the, bh2o) = szmb - m_B * zo - szsvbh2o(the, bh2o)
