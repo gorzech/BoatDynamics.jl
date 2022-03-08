@@ -1,5 +1,11 @@
 @testset "kinetic energy zero at zero velocity" begin
-    T = @test_nowarn kinetic_energy(0.0, 0.0, 0.0)
+    θ_t = deg2rad(30.0)
+    θ′_t = 0.0
+    θ_k = deg2rad(22.0)
+    θ′_k = 0.0
+    γ_OA = deg2rad(60.0)
+    γ′_OA = 0.0
+    T = @test_nowarn kinetic_energy(0.0, 0.0, 0.0, θ_t, θ′_t, θ_k, θ′_k, γ_OA, γ′_OA)
     @test T == 0.0
 end
 

@@ -1,17 +1,11 @@
-@testset "Use adaptive cubature to approximate boat mass" begin
+@testset "Use adaptive cubature to approximate boat mass and ForwardDiff" begin
     function hc_xonly(f, xmin, xmax)
         res = hquadrature(x -> f(x, bd.zmax-bd.hb), xmin, xmax)
         res[1]
     end
     function hc_limit(f, f_zlimit, xmin, xmax)
-        @variables x, z
-        f_sym = f(x, z)
-        Dx = Differential(x)
-        Dz = Differential(z)
-        f_x_sym = expand_derivatives(Dx(f_sym))
-        f_z_sym = expand_derivatives(Dz(f_sym))
-        f_x = build_function(f_x_sym, [x, z], expression=Val{false})
-        f_z = build_function(f_z_sym, [x, z], expression=Val{false})
+        f_x(u) = ForwardDiff.derivative(x -> f(x, u[2]), u[1])
+        f_z(u) = ForwardDiff.derivative(z -> f(u[1], z), u[2])
         function hcfun(u, Δ = 0.0)
             _x, _z = u
             if _z > f_zlimit(_x)
@@ -24,8 +18,7 @@
         end
         a = SA[xmin, bd.zmax-bd.hb]
         b = SA[xmax, bd.zmax]
-        res = @test_nowarn hcubature(u -> hcfun(u), a, b, maxevals=1_000)
-        println(res[2])
+        res = @test_nowarn hcubature(u -> hcfun(u), a, b, maxevals=100_000)
         res[1]
     end
     # Start with the middle part
@@ -43,8 +36,8 @@
     m_hull = snb * bd.rhob * bd.deltab
     # @test snb ≈ bd.snb
     @test 2m_m_b ≈ bd.snbmv
-    @test m_f_b ≈ bd.iinbfvv rtol=1e-3
-    @test m_r_b ≈ bd.iinbrvv rtol=1e-3
+    @test m_f_b ≈ bd.iinbfvv rtol=1e-4
+    @test m_r_b ≈ bd.iinbrvv rtol=1e-4
 
     # poklad
     m_m_d = hc_xonly(bd.fi2m, bd.xmin0, bd.xmax0)
@@ -62,5 +55,5 @@
     @test sbdg ≈ bd.sbdg
 
     m = m_hull + m_deck_full - m_deck_hole + m_ground
-    @test m ≈ bd.m_B rtol=1e-3
+    @test m ≈ bd.m_B rtol=1e-5
 end

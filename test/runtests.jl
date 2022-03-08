@@ -1,6 +1,6 @@
 using StaticArrays
 using HCubature
-using Symbolics
+using ForwardDiff
 
 using Revise
 using BoatDynamics
