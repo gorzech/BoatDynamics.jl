@@ -67,9 +67,8 @@ end
 
 function Q_AE(θ, x1b, bh2o, x1air)
     x1 = x1b - x1air
-    sx1 = sign(x1)
 
-    coeff = 0.5rhoair * x1^2 * sx1
+    coeff = 0.5rhoair * x1^2 * sign(x1)
     R_AE = coeff * sbair(θ, bh2o) * cf0 * freair
     X_AE = -R_AE * cos(θ)
     Z_AE = R_AE * sin(θ)
@@ -90,9 +89,8 @@ function Q_ROAE(θ, x1b, x1air, θ_t, θ′_t)
     # or 
     # x1w = x′_w(θ_t, θ′_t)
     x1 = x1b - x1air + x1w * cos(θ)
-    sx1 = sign(x1)
 
-    coeff = 0.5rhoair * x1^2 * sx1
+    coeff = 0.5rhoair * x1^2 * sign(x1)
     R_ROAE = coeff * sro * cdro
     X_ROAE = -R_ROAE * cos(θ)
     Z_ROAE = R_ROAE * sin(θ)
