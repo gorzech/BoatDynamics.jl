@@ -167,16 +167,16 @@ end
     @test x2sbd ≈ bd.x2sbd
     z2sbde = bd.bbe * (bd.xmaxe - bd.xmine)^2 * (bd.zmax - bd.hb)
     @test z2sbde ≈ bd.z2sbde
-    x2sbde = bd.bbe * (bd.xmaxe - bd.xmine)^3 / 3
-    @test_broken x2sbde ≈ bd.x2sbde
+    x2sbde = bd.bbe * (bd.xmaxe^3 - bd.xmine^3) / 3
+    @test x2sbde ≈ bd.x2sbde
     J_deck_full = (x2sbd + z2sbd) * bd.rhod * bd.deltad
-    J_deck_hole = bd.rhod * bd.deltad * (x2sbde - x2sbde)
+    J_deck_hole = bd.rhod * bd.deltad * (x2sbde + z2sbde)
     # podłoga
-    x2sbdg = bd.bbg * (bd.xmaxg - bd.xming)^3 / 3
-    z2sbdg = bd.bbg * (bd.xmaxg - bd.xming)^2 * (bd.zmax - bd.hb + bd.zg)
-    @test_broken x2sbdg ≈ bd.x2sbdg
-    @test_broken z2sbdg ≈ bd.z2sbdg
-    J_ground = bd.rhog * bd.deltag * (x2sbdg - z2sbdg)
+    x2sbdg = bd.bbg * (bd.xmaxg^3 - bd.xming^3) / 3
+    z2sbdg = bd.bbg * (bd.xmaxg - bd.xming) * (bd.zmax - bd.hb + bd.zg)^2
+    @test x2sbdg ≈ bd.x2sbdg
+    @test z2sbdg ≈ bd.z2sbdg
+    J_ground = bd.rhog * bd.deltag * (x2sbdg + z2sbdg)
 
     J_st = bd.m_B * (bd.xo^2 + bd.zo^2)
     J = J_hull + J_deck_full - J_deck_hole + J_ground - J_st

@@ -9,5 +9,5 @@ using Test
 
 @testset "BoatDynamics.jl" begin
     include("kinetic_energy_test.jl")
-    include("approximate_inertia.jl")
+    include("approximate_inertia_test.jl")
 end
