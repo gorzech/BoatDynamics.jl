@@ -47,9 +47,9 @@ const gle = SA[
     0.1494513491505806,
     0.0666713443086881,
 ]
-const xf = 0.5 * (xmax0 + xmax) .+ 0.5 * (xmax - xmax0) * xgle
-const xm = 0.5 * (xmax0 + xmin0) .+ 0.5 * (xmax0 - xmin0) * xgle
-const xr = 0.5 * (xmin0 + xmin) .+ 0.5 * (xmin0 - xmin) * xgle
+const xf = 0.5 * (xmax0 + xmax) + 0.5 * (xmax - xmax0) * xgle
+const xm = 0.5 * (xmax0 + xmin0) + 0.5 * (xmax0 - xmin0) * xgle
+const xr = 0.5 * (xmin0 + xmin) + 0.5 * (xmin0 - xmin) * xgle
 const inbfvx = inbfnv.(xf)
 const iinbfvv = 0.5 * (xmax - xmax0) * dot(inbfvx, gle)
 # x1inbfnv(x)=x*inbfnv(x);
@@ -183,7 +183,9 @@ const szmb = rhob * deltab * z1snb + rhod * deltad * (z1sbd - z1sbde) + rhog * d
 const xo = sxmb / m_B
 const zo = szmb / m_B
 const J_By = rhob * deltab * (x2snb + z2snb) + rhod * deltad * (x2sbd + z2sbd - x2sbde - z2sbde) + rhog * deltag * (x2sbdg + z2sbdg) - m_B * (xo^2 + zo^2)
-const sbof = snb + sbd
+const sb = snb + sbd
+const x1sb = x1snb + x1sbd
+const z1sb = z1snb + z1sbd
 
 const x_SB = x_SBME - xo
 const x_OAB = x_OABME - xo 
@@ -549,18 +551,10 @@ tvmh2o(the) = (bb * xo * cos(the) * (2 * hb - 2 * zmax)) / (2 * hb^2) - (bb * zm
 z1tvmh2o(the, bh2o) = (bb * (zmax - bh2o + xo * tan(the))^2 * (8 * bh2o * hb - 2 * bh2o * zmax + 4 * hb * zmax + 3 * xo^2 * tan(the)^2 + 3 * bh2o^2 - zmax^2 - 6 * bh2o * xo * tan(the) - 8 * hb * xo * tan(the) + 2 * xo * zmax * tan(the))) / (12 * hb^2);
 sztvmh2o(the, bh2o) = z1tvmh2o(the, bh2o) - zo * tvmh2o(the)
 
-amaxt(the) = tan(the)^2 + hb^2 / (xmax-xmax0)^2
-bmaxt(the, bh2o) = xo*tan(the)^2 + (bh2o + hb - zmax) * tan(the) + xmax0*hb^2 / (xmax-xmax0)^2
-cmaxt(the, bh2o) = xo^2*tan(the)^2 + 2*xo*(bh2o + hb - zmax) * tan(the) + (bh2o + hb - zmax)^2 - (xmax^2 - 2*xmax0*xmax)*hb^2 / (xmax-xmax0)^2
-xmaxt(the, bh2o) = begin
-    a = amaxt(the)
-    b = bmaxt(the, bh2o)
-    c = cmaxt(the, bh2o)
-    (-b+(b^2 - 4*a*c)^0.5) / 2a
-end
-lbh2o(the,bh2o)=((((bh2o+hb-zmax)*tan(the)+hb^2*xmax0*(xmax-xmax0)^(-2)+2*((hb^4+2*hb^2*xmax0*(bh2o+hb-zmax)*tan(the)-(bh2o+hb-zmax)^2*hb^2+(bh2o+hb-zmax)*hb^2*(tan(the))^2)*(xmax-xmax0)^(-2))^0.5)*(2*((tan(the))^2+hb^2*(xmax-xmax0)^(-2))^(-1))-((bh2o+hb-zmax)*tan(the)+hb^2*xmin0*(xmin0-xmin)^(-2)-2*((hb^4+2*hb^2*xmin0*(bh2o+hb-zmax)*tan(the)-(bh2o+hb-zmax)^2*hb^2+(bh2o+hb-zmax)*hb^2*(tan(the))^2)*(xmin0-xmin)^(-2))^0.5)*(2*((tan(the))^2+hb^2*(xmin0-xmin)^(-2))^(-1)))^2+(psi2(((bh2o+hb-zmax)*tan(the)+hb^2*xmax0*(xmax-xmax0)^(-2)+2*((hb^4+2*hb^2*xmax0*(bh2o+hb-zmax)*tan(the)-(bh2o+hb-zmax)^2*hb^2+(bh2o+hb-zmax)*hb^2*(tan(the))^2)*(xmax-xmax0)^(-2))^0.5)*(2*((tan(the))^2+hb^2*(xmax-xmax0)^(-2))^(-1)))-psi1(((bh2o+hb-zmax)*tan(the)+hb^2*xmin0*(xmin0-xmin)^(-2)-2*((hb^4+2*hb^2*xmin0*(bh2o+hb-zmax)*tan(the)-(bh2o+hb-zmax)^2*hb^2+(bh2o+hb-zmax)*hb^2*(tan(the))^2)*(xmin0-xmin)^(-2))^0.5)*(2*((tan(the))^2+hb^2*(xmin0-xmin)^(-2))^(-1))))^2)^0.5
+
+lbh2o(the,bh2o)=((((bh2o+hb-zmax)*tan(the)+hb^2*xmax0*(xmax-xmax0)^(-2)+2*((hb^4+2*hb^2*xmax0*(bh2o+hb-zmax)*tan(the)-(bh2o+hb-zmax)^2*hb^2+(bh2o+hb-zmax)*hb^2*(tan(the))^2)*(xmax-xmax0)^(-2))^0.5)*(2*((tan(the))^2+hb^2*(xmax-xmax0)^(-2))^(-1))-((bh2o+hb-zmax)*tan(the)+hb^2*xmin0*(xmin0-xmin)^(-2)-2*((hb^4+2*hb^2*xmin0*(bh2o+hb-zmax)*tan(the)-(bh2o+hb-zmax)^2*hb^2+(bh2o+hb-zmax)*hb^2*(tan(the))^2)*(xmin0-xmin)^(-2))^0.5)*(2*((tan(the))^2+hb^2*(xmin0-xmin)^(-2))^(-1)))^2+(psi2(((bh2o+hb-zmax)*tan(the)+hb^2*xmax0*(xmax-xmax0)^(-2)+2*((hb^4+2*hb^2*xmax0*(bh2o+hb-zmax)*tan(the)-(bh2o+hb-zmax)^2*hb^2+(bh2o+hb-zmax)*hb^2*(tan(the))^2)*(xmax-xmax0)^(-2))^0.5)*(2*((tan(the))^2+hb^2*(xmax-xmax0)^(-2))^(-1)))-psi1(((bh2o+hb-zmax)*tan(the)+hb^2*xmin0*(xmin0-xmin)^(-2)-2*((hb^4+2*hb^2*xmin0*(bh2o+hb-zmax)*tan(the)-(bh2o+hb-zmax)^2*hb^2+(bh2o+hb-zmax)*hb^2*(tan(the))^2)*(xmin0-xmin)^(-2))^0.5)*(2*((tan(the))^2+hb^2*(xmin0-xmin)^(-2))^(-1))))^2)^0.5;
 sbair(the, bh2o) = sbof - svbh2o(the, bh2o);
-sxsbair(the, bh2o) = sxmb - m_B * xo - sxsvbh2o(the, bh2o)
-szsbair(the, bh2o) = szmb - m_B * zo - szsvbh2o(the, bh2o)
+sxsbair(the, bh2o) = x1sbof - sb * xo - sxsvbh2o(the, bh2o)
+szsbair(the, bh2o) = z1sbof - sb * zo - szsvbh2o(the, bh2o)
 
 szsro = bro * ((zmax - hb)^2 - (zmax - hb - hro)^2) / 2 - zo * sro
