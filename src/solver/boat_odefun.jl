@@ -35,8 +35,8 @@ function boatode!(dy, y, p::Boat_ode_params, t)
     b = system_rhs(u, w, θ′, bsp.boat_angles)
     F = Q(θ, bsp)
 
-    dy[1] = bsp.x′
-    dy[2] = bsp.z′
+    dy[1] = bsp.x′g
+    dy[2] = bsp.z′g
     dy[3] = θ′
     dy[4:6] = M \ (b + F)
 end

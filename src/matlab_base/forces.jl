@@ -4,18 +4,18 @@ struct Boat_sim_pars
     η::Float64
     x1va::Float64
     x1air::Float64
-    x′::Float64
-    z′::Float64
+    x′g::Float64
+    z′g::Float64
 end
 
 function Q(θ, bsp::Boat_sim_pars)
-    x1va, x1air, x′, ba, bh2o = bsp.x1va, bsp.x1air, bsp.x′, bsp.boat_angles, bsp.bh2o
+    x1va, x1air, x′g, ba, bh2o = bsp.x1va, bsp.x1air, bsp.x′g, bsp.boat_angles, bsp.bh2o
     Q_g(θ, ba.γ_OA, ba.θ_k, ba.θ_t) +
     Q_BUOY(θ, bh2o) +
-    Q_VA(θ, x′, bh2o, x1va) +
-    Q_AE(θ, x′, bh2o, x1air) +
-    Q_ROAE(θ, x′, x1air, ba.θ_t, ba.θ′_t) +
-    Q_T(θ, x′, x1va, ba.γ_OA, ba.γ′_OA, bsp.η)
+    Q_VA(θ, x′g, bh2o, x1va) +
+    Q_AE(θ, x′g, bh2o, x1air) +
+    Q_ROAE(θ, x′g, x1air, ba.θ_t, ba.θ′_t) +
+    Q_T(θ, x′g, x1va, ba.γ_OA, ba.γ′_OA, bsp.η)
 end
 
 function Q_g(θ, γ_OA, θ_k, θ_t)
@@ -47,53 +47,56 @@ function Q_BUOY(θ, bh2o)
     SA[X, Z, M_BUOY]
 end
 
-function Q_VA(θ, x1b, bh2o, x1va)
-    x1 = x1b - x1va
-    sx1 = sign(x1)
-    coeff = 0.5rhoh2o * x1^2 * sx1
+function Q_VA(θ, x1g, bh2o, x1va)
+    x1_VA = x1g - x1va
+    w = -0.5rhoh2o * x1_VA^2 * sign(x1_VA)
 
-    R_SHAPE = coeff * cdx * tvmh2o(θ) / cos(θ)
-    R_VIS = coeff * cf0 * svbh2o(θ, bh2o) * freh2o
-    R_VAVE = coeff * cdw * yth2ov(θ, bh2o)
+    R_SHAPE = w * cdx * tvmh2o(θ) / cos(θ)
+    R_VIS = w * cf0 * svbh2o(θ, bh2o) * freh2o
+    R_VAVE = w * cdw * yth2ov(θ, bh2o)
     R_VA = R_SHAPE + R_VIS + R_VAVE
-    X_VA = -R_VA * cos(θ)
-    Z_VA = R_VA * sin(θ)
-    M_SHAPE = -coeff * cdx * sztvmh2o(θ, bh2o) ./ cos(θ)
-    M_VIS = -coeff * cf0 * (szsvbh2o(θ, bh2o) * cos(θ) - sxsvbh2o(θ, bh2o) * sin(θ)) * freh2o
-    M_VAVE = -coeff * cdw * (z1yth2ov(θ, bh2o) * cos(θ) - x1yth2ov(θ, bh2o) * sin(θ))
+    M_SHAPE = w * cdx * sztvmh2o(θ, bh2o) ./ cos(θ)
+    M_VIS = w * cf0 * (szsvbh2o(θ, bh2o) * cos(θ) + sxsvbh2o(θ, bh2o) * sin(θ)) * freh2o
+    M_VAVE = w * cdw * (szyth2ov(θ, bh2o) * cos(θ) + sxyth2ov(θ, bh2o) * sin(θ))
     M_VA = M_SHAPE + M_VIS + M_VAVE
+
+    X_VA = R_VA * cos(θ)
+    Z_VA = -R_VA * sin(θ)
     SA[X_VA, Z_VA, M_VA]
 end
 
-function Q_AE(θ, x1b, bh2o, x1air)
-    x1 = x1b - x1air
+function Q_AE(θ, x1g, bh2o, x1air)
+    x1_AE = x1g - x1air
 
-    coeff = 0.5rhoair * x1^2 * sign(x1)
-    R_AE = coeff * sbair(θ, bh2o) * cf0 * freair
-    X_AE = -R_AE * cos(θ)
-    Z_AE = R_AE * sin(θ)
-    M_AE = -coeff * (szsbair(θ, bh2o) * cos(θ) - sxsbair(θ, bh2o) * sin(θ)) * cf0 * freair
+    w_AE = 0.5rhoair * x1_AE^2 * sign(x1_AE) * cf0 * freair
+    R_AE = -w_AE * sbair(θ, bh2o)
+    M_AE = w_AE * (szsbair(θ, bh2o) * cos(θ) + sxsbair(θ, bh2o) * sin(θ))
+
+    X_AE = R_AE * cos(θ)
+    Z_AE = -R_AE * sin(θ)
     SA[X_AE, Z_AE, M_AE]
 end
 
-function Q_T(θ, x1b, x1va, γ_OA, γ′_OA, η)
-    F_OAR = foa(γ_OA, γ′_OA, x1b, x1va, η)
+function Q_T(θ, x1g, x1va, γ_OA, γ′_OA, η)
+    F_OAR = foa(γ_OA, γ′_OA, x1g, x1va, η)
     T_OAR = 2F_OAR * sin(γ_OA)
     X_T = T_OAR * cos(θ)
     Z_T = -T_OAR * sin(θ)
     SA[X_T, Z_T, 0]
 end
 
-function Q_ROAE(θ, x1b, x1air, θ_t, θ′_t)
+
+
+function Q_ROAE(θ, x1g, x1air, θ_t, θ′_t)
     x1w = 0
     # or 
     # x1w = x′_w(θ_t, θ′_t)
-    x1 = x1b - x1air + x1w * cos(θ)
-
-    coeff = 0.5rhoair * x1^2 * sign(x1)
-    R_ROAE = coeff * sro * cdro
-    X_ROAE = -R_ROAE * cos(θ)
-    Z_ROAE = R_ROAE * sin(θ)
-    M_ROAE = -coeff * szsro * cdro
+    x1_ROAE = x1g - x1air + x1w * cos(θ)
+    w = -0.5rhoair * x1_ROAE^2 * sign(x1_ROAE)
+    
+    R_ROAE = w * sro * cdro
+    M_ROAE = w * szsro * cdro
+    X_ROAE = R_ROAE * cos(θ)
+    Z_ROAE = -R_ROAE * sin(θ)
     SA[X_ROAE, Z_ROAE, M_ROAE]
 end
