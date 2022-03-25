@@ -8,7 +8,7 @@ function integrate_xontop(f, xmin, xmax)
     res = hquadrature(x -> f(SA[x, bd.zmax-bd.hb]), xmin, xmax)
     res[1]
 end
-function integrate_limit(f, f_zlimit; xmin, xmax, zmin = bd.zmax - bd.hb, zmax = bd.zmax)
+function integrate_zlimit(f, f_zlimit; xmin, xmax, zmin = bd.zmax - bd.hb, zmax = bd.zmax)
     function hcfun(u)
         _x, _z = u
         _z > f_zlimit(_x) ? 0.0 : f(u)
@@ -19,15 +19,18 @@ function integrate_limit(f, f_zlimit; xmin, xmax, zmin = bd.zmax - bd.hb, zmax =
     # println(res[2])
     res[1]
 end
+fi2m(u) = bd.fi2m(u[1], u[2])
+fi2f(u) = bd.fi2f(u[1], u[2])
+fi2r(u) = bd.fi2r(u[1], u[2])
 # Start with the middle part
-integrate_middle(f = bd.fi2m; kwargs...) =
-    integrate_limit(f, (x) -> bd.zmax; xmin = bd.xmin0, xmax = bd.xmax0, kwargs...)
+integrate_middle(f = fi2m; zlimit = (x) -> bd.zmax, kwargs...) =
+    integrate_zlimit(f, zlimit; xmin = bd.xmin0, xmax = bd.xmax0, kwargs...)
 # dziob - psi2, fi2f
-integrate_front(f = bd.fi2f; kwargs...) =
-    integrate_limit(f, bd.psi2; xmin = bd.xmax0, xmax = bd.xmax, kwargs...)
+integrate_front(f = fi2f; zlimit = bd.psi2, kwargs...) =
+    integrate_zlimit(f, zlimit; xmin = bd.xmax0, xmax = bd.xmax, kwargs...)
 # rufa - psi1, fi2r
-integrate_rear(f = bd.fi2r; kwargs...) =
-    integrate_limit(f, bd.psi1; xmin = bd.xmin, xmax = bd.xmin0, kwargs...)
+integrate_rear(f = fi2r; zlimit = bd.psi1, kwargs...) =
+    integrate_zlimit(f, zlimit; xmin = bd.xmin, xmax = bd.xmin0, kwargs...)
 
 @testset "Use adaptive cubature to approximate boat mass" begin
     # kadlub
@@ -187,21 +190,49 @@ end
     tol = eps()
     @test abs(bd.vh2o(0.0, bd.zmax - tol)) < tol
     # vh2o(0.0, 0.0) - should be the full boat volume!
-    V_m_b = integrate_middle(u -> bd.fi2m(u...))
-    V_f_b = integrate_front(u -> bd.fi2f(u...))
-    V_r_b = integrate_rear(u -> bd.fi2r(u...))
-    @test bd.vh2o(0.0, 0.0) ≈ 2 * (V_m_b + V_f_b + V_r_b) rtol = 1e-6
+    V_max = bd.vh2o(0.0, 0.0)
+    V_max_m = 2integrate_middle()
+    V_max_f = 2integrate_front()
+    V_max_r = 2integrate_rear()
+    @test V_max ≈ V_max_m + V_max_f + V_max_r rtol = 1e-6
     # compute for some bh2o value
     bh2o = 0.111245
-    V_m_b = integrate_middle(u -> bd.fi2m(u...), zmin = bh2o)
-    V_f_b = integrate_front(u -> bd.fi2f(u...), zmin = bh2o)
-    V_r_b = integrate_rear(u -> bd.fi2r(u...), zmin = bh2o)
+    V_m_b = integrate_middle(zmin = bh2o)
+    V_f_b = integrate_front(zmin = bh2o)
+    V_r_b = integrate_rear(zmin = bh2o)
     @test bd.vh2o(0.0, bh2o) ≈ 2 * (V_m_b + V_f_b + V_r_b) rtol = 1e-6
-    # the = 0.003
-    # R = SA[cos(the) -sin(the); sin(the) cos(the)]
-    # V_m_b = integrate_middle(u -> bd.fi2m((R'*u)...), zmin = bh2o)
-    # @test bd.vh2om(the, bh2o) ≈ 2 * (V_m_b) rtol = 1e-6
-    # V_f_b = integrate_front(u -> bd.fi2f(u...), zmin = bh2o)
-    # V_r_b = integrate_rear(u -> bd.fi2r(u...), zmin = bh2o)
-    # @test bd.vh2o(the, bh2o) ≈ 2 * (V_m_b + V_f_b + V_r_b) rtol = 1e-6
+
+    bh2o = 0.05
+    the = deg2rad(1)
+    # complement of the volume of the water
+    x_W = bd.xo - bh2o / tan(-the) # x coordinate for water level in boat coordinate system
+    z_W(x) = (x - x_W) * tan(-the) # z coordinate of water level in boat coord system for given x
+    z_limit_W(f_limit) = x -> min(z_W(x), f_limit(x))
+
+    cV_m_b = integrate_middle(
+        zlimit = z_limit_W((x) -> bd.zmax)
+    )
+    # println(cV_m_b)
+    # dziob - psi2, fi2f
+    cV_f_b = integrate_zlimit(
+        u -> bd.fi2f(u...),
+        z_limit_W(bd.psi2);
+        xmin = bd.xmax0,
+        xmax = bd.xmax,
+    )
+    # println(cV_f_b)
+    # rufa - psi1, fi2r
+    cV_r_b = integrate_zlimit(
+        u -> bd.fi2r(u...),
+        z_limit_W(bd.psi1);
+        xmin = bd.xmin,
+        xmax = bd.xmin0,
+    )
+    # println(cV_r_b)
+    vh2o = V_max - 2(cV_m_b + cV_f_b + cV_r_b)
+    # println((vh2o, bd.vh2o(0.0, bh2o)))
+    @test_broken bd.vh2o(the, bh2o) ≈ vh2o rtol = 1e-6
+    @test bd.vh2ofn(the, bh2o) ≈ V_max_f - 2cV_f_b rtol = 1e-2
+    @test_broken bd.vh2om(the, bh2o) ≈ V_max_m - 2cV_m_b rtol = 1e-6
+    @test bd.vh2orn(the, bh2o) ≈ V_max_r - 2cV_r_b rtol = 1e-3
 end
