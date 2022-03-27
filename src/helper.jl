@@ -18,7 +18,7 @@ function bisectionMethod(f, a, b, tol; maxiter = 1000) #f=@(x)x^2-3; a=1; b=2; (
         _fc = f(c)
         iter += 1
         iter < maxiter || throw(
-            DomainError("Maximum number of iterations reached in bisectionMethod $iter."),
+            DomainError("Maximum number of iterations reached in bisectionMethod $iter"),
         )
     end
     return c
@@ -38,10 +38,12 @@ end
 
 const vh2o_0 = m / rhoh2o
 find_bh2o(the) = (bh2o) -> vh2o_0 - vh2o(the, bh2o)
-bh2o0(the) = bisectionMethodError(find_bh2o(the), zmax - hb, zmax, 1e-12) # (zmax=>bh2o=>zmax-hb)
+bh2o0(the) = bisectionMethodError(find_bh2o(the), zmax - hb, zmax, 1e-6) # (zmax=>bh2o=>zmax-hb)
 
 function get_bh2o(z, θ, p)
-    bh2o = p.bh2o_0 - z / cos(θ)
+    B0 = cos(p.θ0) * (p.bh2o_0 - zo)
+    bh2o = (B0 - z) / cos(θ) + zo
+    # bh2o = p.bh2o_0 - z / cos(θ)
     # if bh2o < zmax - hb || bh2o > zmax
     #     @warn "bh2o value in boatode! out of range" bh2o
     # end
