@@ -41,7 +41,7 @@ end
     # @test x1snb ≈ bd.x1snb
     @test 2sx_m_b ≈ bd.x1snbmv
     @test sx_f_b ≈ bd.ix1inbfvv rtol = 1e-3
-    @test_broken sx_r_b ≈ bd.ix1inbrvv rtol = 1e-3
+    @test sx_r_b ≈ bd.ix1inbrvv rtol = 1e-3
 
     # poklad
     sxfun2(f) = sxfun(u -> f(u[1], u[2]))
@@ -60,7 +60,7 @@ end
     sx_ground = bd.rhog * bd.deltag * x1sbdg
 
     sx = sx_hull + sx_deck_full - sx_deck_hole + sx_ground
-    @test_broken sx ≈ bd.sxmb rtol = 1e-5
+    @test sx ≈ bd.sxmb rtol = 1e-4
     # println((sx / bd.m_B, bd.xo))
 end
 
@@ -111,7 +111,7 @@ end
     z2_r_b = integrate_rear(z2fun_area(bd.fi2r))
     @test 2x2_m_b ≈ bd.x2snbmv
     @test x2_f_b ≈ bd.ix2inbfvv rtol = 4e-4
-    @test_broken x2_r_b ≈ bd.ix2inbrvv rtol = 1e-2
+    @test x2_r_b ≈ bd.ix2inbrvv rtol = 1e-2
 
     @test 2z2_m_b ≈ bd.z2snbmnv
     @test z2_f_b ≈ bd.iz2inbfvv rtol = 1e-2
@@ -148,6 +148,5 @@ end
 
     J_st = bd.m_B * (bd.xo^2 + bd.zo^2)
     J = J_hull + J_deck_full - J_deck_hole + J_ground - J_st
-    @test_broken J ≈ bd.J_By rtol = 5e-3
-    # println((J, bd.J_By))
+    @test J ≈ bd.J_By rtol = 5e-4
 end
