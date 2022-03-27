@@ -1,7 +1,9 @@
 function water_line_z(x, bh2o, the)
     tt = tan(-the)
-    x_W = bd.xo - bh2o / tt # x coordinate for water level in boat coordinate system
-    (x - x_W) * tt # z coordinate of water level in boat coord system for given x
+    # x_W = bd.xo - bh2o / tt # x coordinate for water level in boat coordinate system
+    # (x - x_W) * tt # z coordinate of water level in boat coord system for given x
+    # combined
+    (x - bd.xo) * tt + bh2o
 end
 
 @testset "Check if approximation of vh2o is correct" begin
@@ -29,9 +31,9 @@ end
     V_r_b = integrate_rear(flimit = z_limit_W(flimitr))
 
     vh2o = 2(V_m_b + V_f_b + V_r_b)
-    @test_broken bd.vh2o(the, bh2o) ≈ vh2o rtol = 1e-6
+    @test bd.vh2o(the, bh2o) ≈ vh2o rtol = 5e-3
     @test bd.vh2ofn(the, bh2o) ≈ 2V_f_b rtol = 2e-2
-    @test_broken bd.vh2om(the, bh2o) ≈ 2V_m_b rtol = 1e-6
+    @test bd.vh2om(the, bh2o) ≈ 2V_m_b rtol = 1e-4
     @test bd.vh2orn(the, bh2o) ≈ 2V_r_b rtol = 1e-3
 end
 

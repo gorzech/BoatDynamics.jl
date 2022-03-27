@@ -43,7 +43,7 @@ function Q_BUOY(θ, bh2o)
     F_BUOY = -rhoh2o * g * vh2o(θ, bh2o)
     X = F_BUOY * sin(θ)
     Z = F_BUOY * cos(θ)
-    M_BUOY = -rhoh2o * g * (szvh2o(θ, bh2o) * sin(θ) + sxvh2o(θ, bh2o) * cos(θ))
+    M_BUOY = rhoh2o * g * (szvh2o(θ, bh2o) * sin(θ) + sxvh2o(θ, bh2o) * cos(θ))
     SA[X, Z, M_BUOY]
 end
 
@@ -70,7 +70,7 @@ function Q_AE(θ, x1g, bh2o, x1air)
 
     w_AE = 0.5rhoair * x1_AE^2 * sign(x1_AE) * cf0 * freair
     R_AE = -w_AE * sbair(θ, bh2o)
-    M_AE = -w_AE * (szsbair(θ, bh2o) * cos(θ) + sxsbair(θ, bh2o) * sin(θ))
+    M_AE = w_AE * (szsbair(θ, bh2o) * cos(θ) + sxsbair(θ, bh2o) * sin(θ))
 
     X_AE = R_AE * cos(θ)
     Z_AE = -R_AE * sin(θ)
