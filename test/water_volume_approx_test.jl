@@ -1,11 +1,3 @@
-function water_line_z(x, bh2o, the)
-    tt = tan(-the)
-    # x_W = bd.xo - bh2o / tt # x coordinate for water level in boat coordinate system
-    # (x - x_W) * tt # z coordinate of water level in boat coord system for given x
-    # combined
-    (x - bd.xo) * tt + bh2o
-end
-
 @testset "Check if approximation of vh2o is correct" begin
     tol = eps()
     @test abs(bd.vh2o(0.0, bd.zmax - tol)) < tol
