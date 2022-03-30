@@ -7,6 +7,7 @@ function solve_boat(
     w0 = 0.0,
     θ′0 = 0.0,
     settings = Boat_settings(),
+    dt::Union{Float64, Nothing} = nothing
 )
     # "decode" settings
     p = Boat_ode_params(θ0, settings)
@@ -20,6 +21,9 @@ function solve_boat(
 
     tspan = (0.0, t_end)
     prob = ODEProblem(boatode!, y0, tspan, p)
-
-    solve(prob, abstol = 1e-9, reltol = 1e-7, saveat = 0.01)
+    if dt === nothing
+        solve(prob, abstol = 1e-9, reltol = 1e-7, saveat = 0.01)
+    else
+        solve(prob, SimpleRK4(), dt = dt)
+    end
 end

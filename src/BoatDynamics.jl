@@ -1,6 +1,7 @@
 module BoatDynamics
 using LinearAlgebra
 using DifferentialEquations
+using SimpleDiffEq
 using StaticArrays
 using Plots
 
