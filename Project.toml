@@ -16,6 +16,7 @@ Symbolics = "0c5d862f-8b57-4792-8d23-62f2024744c7"
 
 [compat]
 DifferentialEquations = "7"
+HCubature = "1"
 Plots = "1"
 Revise = "3"
 StaticArrays = "1"
