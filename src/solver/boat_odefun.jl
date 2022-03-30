@@ -9,7 +9,7 @@ struct Boat_ode_params
 end
 
 Boat_ode_params(θ0, bs::Boat_settings) =
-    Boat_ode_params(θ0, bh2o0(θ0), deg2rad(bs.angle_ranges), bs.timing, bs.x1va, bs.x1air)
+    Boat_ode_params(θ0, bh2o0(0.0), deg2rad(bs.angle_ranges), bs.timing, bs.x1va, bs.x1air)
 
 function Boat_sim_pars(z, θ, u, w, p::Boat_ode_params, t)
     sθ, cθ = sincos(θ)
