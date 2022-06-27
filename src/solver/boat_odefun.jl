@@ -5,10 +5,17 @@ struct Boat_ode_params
     timing::Boat_timing
     x1va::Float64
     x1air::Float64
+    inactive_equations::Vector{Int}
 end
 
-Boat_ode_params(θ0, bs::Boat_settings) =
-    Boat_ode_params(bh2o0(θ0), deg2rad(bs.angle_ranges), bs.timing, bs.x1va, bs.x1air)
+Boat_ode_params(θ0, bs::Boat_settings) = Boat_ode_params(
+    bh2o0(θ0),
+    deg2rad(bs.angle_ranges),
+    bs.timing,
+    bs.x1va,
+    bs.x1air,
+    setdiff([1, 2, 3], bs.active_equations),
+)
 
 function Boat_sim_pars(z, θ, u, w, p::Boat_ode_params, t)
     sθ, cθ = sincos(θ)
@@ -39,6 +46,10 @@ function boatode!(dy, y, p::Boat_ode_params, t)
     dy[2] = bsp.z′
     dy[3] = θ′
     dy[4:6] = M \ (b + F)
+    if !isempty(p.inactive_equations)
+        dy[p.inactive_equations] .= 0
+        dy[3 .+ p.inactive_equations] .= 0
+    end
 end
 
 function static_equilibrium(θ, settings::Boat_settings)
